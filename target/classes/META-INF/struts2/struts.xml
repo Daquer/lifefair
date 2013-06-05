@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<!-- Include da configuração padrão da framework BSAD para o Struts2. -->
+	<include file="META-INF/bsad/struts2/struts-config.xml" />
+
+	<package name="default" namespace="/" extends="bsad-default">
+
+
+		<!-- interceptors -->
+
+		<interceptors>
+			<interceptor name="autorizador" class="br.com.bradseg.interceptor.LoginInterceptor" />
+			<interceptor-stack name="interceptador">
+				<interceptor-ref name="autorizador" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="naoLogado">/WEB-INF/pages/usuario/erros/usuario-invalido.jsp</result>
+		</global-results>
+
+		<!-- Usuario -->
+
+		<action name="inicio" class="usuarioAction" method="inicio">
+			<result name="inicio">/WEB-INF/pages/Siscomat/login.jsp</result>
+		</action>
+
+		<action name="login" class="usuarioAction" method="logar">
+			<result name="logado">/WEB-INF/pages/Siscomat/operacaoDeEmprestimo.jsp</result>
+			<result name="invalido">/WEB-INF/pages/Siscomat/login.jsp</result>
+		</action>
+
+		<action name="deslogar" class="usuarioAction" method="deslogar">
+			<interceptor-ref name="interceptador" />
+			<result name="deslogar">/WEB-INF/pages/Siscomat/login.jsp</result>
+		</action>
+		
+		<action name="operacaoEmprestimo" class="usuarioAction" method="telaOperacaoEmprestimo">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/operacaoDeEmprestimo.jsp</result>
+		</action>
+		
+		<action name="telaOperacaoEmprestimoError" class="usuarioAction" method="telaOperacaoEmprestimoError">
+		<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/operacaoDeEmprestimo.jsp</result>
+		</action>
+		
+		<action name="concluirEmprestimoPrint" class="usuarioAction" method="concluirEmprestimoPrint">
+			<interceptor-ref name="interceptador" />
+			<result type="redirectAction" name="erro">telaOperacaoEmprestimoError</result>
+			<result name="sucesso">/WEB-INF/pages/Siscomat/impressaoCautela.jsp</result>
+		</action>
+		
+		<action name="telaCadastroMaterial" class="usuarioAction" method="telaCadastroMaterial">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/cadastroMaterial.jsp</result>
+		</action>
+		
+		<action name="cadastrarRadio" class="usuarioAction" method="cadastrarRadio">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/cadastroMaterial.jsp</result>
+			<result name="erro">/WEB-INF/pages/Siscomat/cadastroMaterial.jsp</result>
+		</action>
+		
+		<action name="cadastrarPeca" class="usuarioAction" method="cadastrarPeca">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/cadastroMaterial.jsp</result>
+			<result name="soma">/WEB-INF/pages/Siscomat/cadastroMaterial.jsp</result>
+		</action>
+		
+		<action name="cadastroBeneficiario" class="usuarioAction" method="telaCadastrarBeneficiario">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/cadastroBeneficiario.jsp</result>
+		</action>
+		
+		<action name="cadastrarBeneficiario" class="usuarioAction" method="cadastrarBeneficiario">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/cadastroBeneficiario.jsp</result>
+		</action>
+		
+		<action name="relatorioEmissoes" class="usuarioAction" method="telaRelatorioEmissoesRealizadas">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/relatorioEmissoes.jsp</result>
+		</action>
+
+		<action name="recebimentoMaterial" class="usuarioAction" method="telaRecebimentoMaterial">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/Siscomat/recebimentoMaterial.jsp</result>
+		</action>
+
+		<action name="receberMaterial" class="usuarioAction" method="receberMaterial">
+			<interceptor-ref name="interceptador" />
+			<result name="erro">/WEB-INF/pages/Siscomat/recebimentoMaterial.jsp</result>
+			<result name="sucesso">/WEB-INF/pages/Siscomat/recebimentoMaterial.jsp</result>
+		</action>
+
+		<action name="menuUsuario" class="usuarioAction" method="menu">
+			<interceptor-ref name="interceptador" />
+			<result name="menuUsuario">/WEB-INF/pages/usuario/usuario-menu.jsp</result>
+		</action>
+
+		<action name="cadastroUsuario" class="usuarioAction" method="iniciar">
+			<interceptor-ref name="interceptador" />
+			<result name="iniciar">/WEB-INF/pages/usuario/usuario-cadastro.jsp</result>
+		</action>
+
+		<action name="cadastrarUsuario" class="usuarioAction" method="cadastrar">
+			<interceptor-ref name="interceptador" />
+			<result name="cadastrarUsuario">/WEB-INF/pages/usuario/usuario-cadastrado.jsp</result>
+			<result name="senhasDiferentes">/WEB-INF/pages/usuario/erros/usuario-senhadiferente.jsp</result>
+		</action>
+
+		<action name="listaUsuario" class="usuarioAction" method="listar">
+			<interceptor-ref name="interceptador" />
+			<result name="listaUsuario">/WEB-INF/pages/usuario/usuario-lista.jsp</result>
+		</action>
+
+		<action name="mostrarUsuario" class="usuarioAction" method="mostrarUsuario">
+			<interceptor-ref name="interceptador" />
+			<result name="mostrarUsuario">/WEB-INF/pages/usuario/usuario-mostra.jsp</result>
+			<result name="usuarioInexistente">/WEB-INF/pages/usuario/erros/usuario-inexistente.jsp</result>
+		</action>
+
+		<action name="alterarUsuario" class="usuarioAction" method="alterar">
+			<interceptor-ref name="interceptador" />
+			<result name="alterarUsuario">/WEB-INF/pages/usuario/usuario-altera.jsp</result>
+			<result name="senhasDiferentes">/WEB-INF/pages/usuario/erros/usuario-senhadiferente.jsp</result>
+			<result name="senhaErrada">/WEB-INF/pages/usuario/erros/usuario-senhadiferente.jsp</result>
+		</action>
+
+		<action name="excluirUsuario" class="usuarioAction" method="excluir">
+			<interceptor-ref name="interceptador" />
+			<result name="excluirUsuario">/WEB-INF/pages/usuario/usuario-excluido.jsp</result>
+		</action>
+
+		<action name="buscarUsuario" class="usuarioAction" method="buscar">
+			<interceptor-ref name="interceptador" />
+			<result name="buscarUsuario">/WEB-INF/pages/usuario/usuario-busca.jsp</result>
+		</action>
+
+		<action name="buscarResultadoUsuario" class="usuarioAction" method="buscarResultado">
+			<interceptor-ref name="interceptador" />
+			<result name="buscarResultadoUsuario">/WEB-INF/pages/usuario/usuario-busca.jsp</result>
+		</action>
+
+
+		<!-- Pessoa -->
+
+		<action name="cadastroPessoa" class="pessoaAction" method="iniPessoa">
+			<interceptor-ref name="interceptador" />
+			<result name="cadastroPessoa">/WEB-INF/pages/pessoa/pessoa-cadastro.jsp</result>
+		</action>
+
+		<action name="cadastrarPessoa" class="pessoaAction" method="cadPessoa">
+			<interceptor-ref name="interceptador" />
+			<result name="cadastrarPessoa">/WEB-INF/pages/pessoa/pessoa-cadastrado.jsp</result>
+		</action>
+
+		<action name="listaPessoa" class="pessoaAction" method="listar">
+			<interceptor-ref name="interceptador" />
+			<result name="listaPessoa">/WEB-INF/pages/pessoa/pessoa-lista.jsp</result>
+		</action>
+
+		<action name="mostrarPessoa" class="pessoaAction" method="mostrarPessoa">
+			<interceptor-ref name="interceptador" />
+			<result name="mostrarPessoa">/WEB-INF/pages/pessoa/pessoa-mostra.jsp</result>
+		</action>
+
+		<action name="alterarPessoa" class="pessoaAction" method="alterar">
+			<interceptor-ref name="interceptador" />
+			<result name="alterarPessoa">/WEB-INF/pages/pessoa/pessoa-altera.jsp</result>
+		</action>
+
+		<action name="excluirPessoa" class="pessoaAction" method="excluir">
+			<interceptor-ref name="interceptador" />
+			<result name="excluirPessoa">/WEB-INF/pages/pessoa/pessoa-excluido.jsp</result>
+		</action>
+
+		<action name="buscarPessoa" class="pessoaAction" method="buscar">
+			<interceptor-ref name="interceptador" />
+			<result name="buscarPessoa">/WEB-INF/pages/pessoa/pessoa-busca.jsp</result>
+		</action>
+
+		<action name="buscarResultadoPessoa" class="pessoaAction" method="buscarResultado">
+			<interceptor-ref name="interceptador" />
+			<result name="buscarResultadoPessoa">/WEB-INF/pages/pessoa/pessoa-busca.jsp</result>
+		</action>
+
+
+		
+
+	</package>
+</struts>

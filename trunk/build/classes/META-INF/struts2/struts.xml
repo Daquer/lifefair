@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.1.7//EN"
+	"http://struts.apache.org/dtds/struts-2.1.7.dtd">
+<struts>
+	<!-- Include da configuração padrão da framework BSAD para o Struts2. -->
+	<include file="META-INF/bsad/struts2/struts-config.xml" />
+
+	<package name="default" namespace="/" extends="bsad-default">
+
+		<!-- Usuario -->
+
+		<action name="inicio" class="inicioAction" method="inicio">
+			<result name="inicio">/WEB-INF/pages/login.jsp</result>
+		</action>
+
+		<action name="login" class="loginAction" method="login">
+			<result name="sucesso">/WEB-INF/pages/login.jsp</result>
+		</action>
+		
+
+	</package>
+</struts>

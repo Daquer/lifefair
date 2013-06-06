@@ -10,14 +10,13 @@
 
 		<!-- Usuario -->
 
-		<action name="inicio" class="inicioAction" method="inicio">
-			<result name="inicio">/WEB-INF/pages/login.jsp</result>
+		<action name="inicio" class="usuarioAction" method="inicio">
+			<result name="inicio">/WEB-INF/pages/home.jsp</result>
 		</action>
 
-		<action name="login" class="loginAction" method="login">
-			<result name="sucesso">/WEB-INF/pages/login.jsp</result>
+		<action name="login" class="usuarioAction" method="login">
+			<result name="logado">/WEB-INF/pages/home-autenticado.jsp</result>
+			<result name="invalido">/WEB-INF/pages/home.jsp</result>
 		</action>
-		
-
 	</package>
 </struts>

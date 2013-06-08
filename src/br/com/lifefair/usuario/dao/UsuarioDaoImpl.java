@@ -161,7 +161,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 	}
 
 	public UsuarioDTO logarUsuario(UsuarioDTO usuarioDto) {
-		String query = "select * from usuario where LOGIN = :login and SENHA = :senha";
+		String query = "select * from usuarios where LOGIN = :login and SENHA = :senha";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("login", usuarioDto.getLogin());
 		param.addValue("senha", usuarioDto.getSenha());

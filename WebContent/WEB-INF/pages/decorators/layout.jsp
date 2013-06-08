@@ -1,6 +1,9 @@
-<%@ page language="java"%>
+<%@page import="org.apache.wicket.Session"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="page" uri="http://www.opensymphony.com/sitemesh/page"%>
+<%@page import="br.com.lifefair.usuario.action.UsuarioAction"%>
 <%@ taglib prefix="decorator"
 	uri="http://www.opensymphony.com/sitemesh/decorator"%>
 <%@page import="com.opensymphony.xwork2.ActionContext"%>
@@ -36,10 +39,11 @@
 				</table>
 			</div>
 			<div id="menu">
+			
 				<table >
 					<tbody>
-						<s:if test="%{true}">
-							<s:form action="login" method="post">
+					<%if(request.getSession().getAttribute("usuarioLogado") == null) {%>
+						<s:form action="login" method="post">
 								<tr>
 									<td class=""><a class=""
 										href=""><strong>Login</strong></a></td>
@@ -72,8 +76,14 @@
 								</tr>
 					
 							</s:form>
+						<%} else {%>
+							Id:${usuarioLogado.id} |Login:${usuarioLogado.login}</a>
+		
+							<b class="white_bold">||</b><a href="logoff.do" class="bemvindo">
+								Logout</a>
+							<tr><td>TÁ LOGADO?!!?!?!</td></tr>
+						<%} %>
 						
-						</s:if>
 					</tbody>
 				</table>
 			</div>

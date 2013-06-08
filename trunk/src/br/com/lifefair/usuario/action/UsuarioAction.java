@@ -14,10 +14,11 @@ import com.opensymphony.xwork2.ActionSupport;
 @Scope("request")
 public class UsuarioAction extends ActionSupport {
 
-	
-	private static final long serialVersionUID = -4049607468860054923L;
-	
+	private static final long serialVersionUID = 5858043201266765171L;
+
 	private UsuarioDTO usuarioDTO;
+	public boolean autenticado;
+	
 	
 	@Autowired
 	private UsuarioDao dao;
@@ -31,11 +32,43 @@ public class UsuarioAction extends ActionSupport {
 		
 		if (usuarioDTO.getId() != null) {
 
-			ActionContext.getContext().getSession().put("usuarioLogado", usuarioDTO);
-
-			return "logado";
+			ActionContext.getContext().getSession().put("usuarioLogado", usuarioDTO);			
+			
+			setAutenticado(true);
+			return "autenticado";
 		} else {
+			setAutenticado(false);
 			return "invalido";
 		}
+	}
+	
+	public String logoff() {
+		ActionContext.getContext().getSession().clear();
+		return "logoff";
+	}
+	
+	public boolean isAutenticado() {
+		return autenticado;
+	}
+
+	public void setAutenticado(boolean autenticado) {
+		this.autenticado = autenticado;
+	}
+
+	
+	public UsuarioDTO getUsuarioDTO() {
+		return usuarioDTO;
+	}
+
+	public void setUsuarioDTO(UsuarioDTO usuarioDTO) {
+		this.usuarioDTO = usuarioDTO;
+	}
+
+	public UsuarioDao getDao() {
+		return dao;
+	}
+
+	public void setDao(UsuarioDao dao) {
+		this.dao = dao;
 	}
 }

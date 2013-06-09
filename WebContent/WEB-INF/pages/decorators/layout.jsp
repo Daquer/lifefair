@@ -77,11 +77,29 @@
 					
 							</s:form>
 						<%} else {%>
-							Id:${usuarioLogado.id} |Login:${usuarioLogado.login}</a>
-		
-							<b class="white_bold">||</b><a href="logoff.do" class="bemvindo">
-								Logout</a>
-							<tr><td>TÁ LOGADO?!!?!?!</td></tr>
+						<tr>
+									<td class=""><a class=""
+										href=""><strong>Cadastro/Consultas</strong></a></td>
+				
+									<td class=""><a class="" href=""><strong>Compra/Pesquisa</strong></a></td>
+				
+									<td class=""><a class=""
+										href=""><strong>Área do Médico</strong></a></td>
+				
+									<td class="">
+										<a class="" href="">
+											<strong>
+												Área do Paciente
+											</strong>
+										</a>
+									</td>
+									<td>
+										Id:${usuarioLogado.id} |Login:${usuarioLogado.login}</a>
+			
+										<b class="white_bold">||</b><a href="logoff.do" class="bemvindo">
+										Logout</a>
+									</td>
+							</tr>
 						<%} %>
 						
 					</tbody>

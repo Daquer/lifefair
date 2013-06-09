@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Login Inválido</title>
+<title>Cadastro/ Consultas</title>
 </head>
 <body>
-Login inválido.
+
 </body>
 </html>

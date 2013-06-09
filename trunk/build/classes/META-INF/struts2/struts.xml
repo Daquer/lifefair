@@ -15,8 +15,11 @@
 		</action>
 
 		<action name="login" class="usuarioAction" method="login">
-			<result name="autenticado">/WEB-INF/pages/home-autenticado.jsp</result>
-			<result name="invalido">/WEB-INF/pages/catchthings.jsp</result>
+			<result name="autenticado_indef">/WEB-INF/pages/home-autenticado.jsp</result>
+			<result name="autenticado_med">/WEB-INF/pages/home-autenticado.jsp</result>
+			<result name="autenticado_pac">/WEB-INF/pages/home-autenticado.jsp</result>
+			<result name="autenticado_adm">/WEB-INF/pages/home-autenticado.jsp</result>
+			<result name="invalido">/WEB-INF/pages/home.jsp</result>
 		</action>
 		
 		<action name="logoff" class="usuarioAction" method="logoff">

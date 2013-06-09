@@ -7,6 +7,6 @@
 <title>Home Autenticado</title>
 </head>
 <body>
-
+Bem vindo ao LifeFair.
 </body>
 </html>

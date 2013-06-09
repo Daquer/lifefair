@@ -33,11 +33,19 @@ public class UsuarioAction extends ActionSupport {
 		this.usuarioDTO = dao.logarUsuario(usuarioDTO);
 		
 		if (usuarioDTO.getId() != null) {
-
 			ActionContext.getContext().getSession().put("usuarioLogado", usuarioDTO);			
 			
-			return "autenticado";
+			if (usuarioDTO.getTipo().equals("med")) {
+				return "autenticado_med";
+			} else if(usuarioDTO.getTipo().equals("pac")) {
+				return "autenticado_pac";
+			} else if (usuarioDTO.getTipo().equals("adm")){
+				return "autenticado_adm";
+			} else {
+				return "autenticado_indef";
+			}
 		} else {
+			addActionError("Login Inválido.");
 			return "invalido";
 		}
 	}

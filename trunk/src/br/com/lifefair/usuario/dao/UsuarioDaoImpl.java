@@ -174,6 +174,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 					usuarioDto.setNome(rs.getString("nome"));
 					usuarioDto.setLogin(rs.getString("login"));
 					usuarioDto.setSenha(rs.getString("senha"));
+					usuarioDto.setTipo(rs.getString("tipo"));
 
 					return usuarioDto;
 				}

@@ -6,6 +6,7 @@ public class UsuarioDTO {
 	private String nome;
 	private String login;
 	private String senha;
+	private String tipo;
 
 	public Long getId() {
 		return id;
@@ -37,6 +38,14 @@ public class UsuarioDTO {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public String getTipo() {
+		return tipo;
+	}
+
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 }

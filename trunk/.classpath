@@ -14,5 +14,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/bsad3.2.2"/>
+	<classpathentry kind="lib" path="C:/javalibs/Banco de Dados/mysql-connector-java-5.1.20-bin.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

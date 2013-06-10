@@ -26,6 +26,8 @@ public class UsuarioAction extends ActionSupport {
 	@Autowired
 	private UsuarioDao dao;
 	
+	//TODO Página de cadastro dinâmica para médico e paciente
+	
 	//Acesso
 	//Acesso à home.
 	public String inicio() {

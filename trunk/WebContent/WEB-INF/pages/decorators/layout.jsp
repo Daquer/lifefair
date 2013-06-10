@@ -22,6 +22,17 @@
 <script type="text/javascript"
 	src="<s:url value='/includes/js/default.js'/>"></script>
 
+<script type="text/javascript"> 
+
+	function search(e){
+	    var tecla=(window.event)?event.keyCode:e.which;
+	    if (tecla == 13) {
+	    	window.location.assign('buscaMedicamento.do?medicamentoDTO.nome=' + e.value );
+	    } else {
+	    	return false;
+	    }
+	}
+</script>
 <decorator:head />
 </head>
 <body>
@@ -41,7 +52,7 @@
 		</div>
 		<div id="menu">
 		
-			<table >
+			<table>
 				<tbody>
 				<%if(request.getSession().getAttribute("usuarioLogado") == null) {%>
 					<s:form action="login" method="post">
@@ -51,8 +62,7 @@
 			
 								<td class=""><a class="" href=""><strong>Fale Conosco</strong></a></td>
 			
-								<td class=""><a class=""
-									href=""><strong>Cadastre-se</strong></a></td>
+								
 			
 								<td class="">
 									<a class="" href="">
@@ -74,6 +84,8 @@
 								<td class="botao">
 									<s:submit cssClass="botao_layout" value="Login" id="logar"/>
 								</td>
+								<td class=""><a class=""
+									href="cadastrese.do"><sub>ou Cadastre-se</sub></a></td>
 							</tr>
 				
 						</s:form>
@@ -81,10 +93,8 @@
 					UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("usuarioLogado");%>
 					<tr>
 								<td class=""><a class=""
-									href=""><strong>Cadastro/Consultas</strong></a></td>
-			
-								<td class=""><a class="" href=""><strong>Compra/Pesquisa</strong></a></td>
-								
+									href=""><strong>Meu Cadastro/Consultas</strong></a></td>
+											
 								<%if(usuario.getTipo().equals("med")) { %>
 									<td class=""><a class=""
 										href=""><strong>Área do Médico</strong></a></td>
@@ -97,11 +107,14 @@
 									</a>
 								</td>
 								<%} %>
+								<td class="">
+									<s:textfield onkeypress="search(this)" onclick='this.value = ""; this.style.opacity = 1.0; return false;' style="opacity: 0.4;" value="remédio?" /><sub>powered by LifeFair<sup>TM</sup></sub>
+								</td>
 								<td>
-									Id:${usuarioLogado.id} |Login:${usuarioLogado.login}</a>
+									<span>Olá ${usuarioLogado.nome}</span>
 		
-									<b class="white_bold">||</b><a href="logoff.do" class="bemvindo">
-									Logout</a>
+									<b class="white_bold"></b><a href="logoff.do" class="bemvindo">
+									<sub>Logout</sub></a>
 								</td>
 						</tr>
 					<%} %>

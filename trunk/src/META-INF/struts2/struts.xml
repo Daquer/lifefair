@@ -25,5 +25,18 @@
 		<action name="logoff" class="usuarioAction" method="logoff">
 			<result name="logoff">/WEB-INF/pages/home.jsp</result>
 		</action>
+		
+		<action name="cadastrese" class="usuarioAction" method="cadastrese">
+			<result name="cadastrese">/WEB-INF/pages/cadastrese.jsp</result>
+		</action>
+		
+		<action name="cadastro" class="usuarioAction" method="cadastro">
+			<result name="cadastrado">/WEB-INF/pages/home.jsp</result>
+		</action>
+		
+		<!-- Medicamento -->
+		<action name="buscaMedicamento" class="medicamentoAction" method="buscaMedicamento">
+			<result name="sucesso">/WEB-INF/pages/resultadoBuscaMedicamento.jsp</result>
+		</action>
 	</package>
 </struts>

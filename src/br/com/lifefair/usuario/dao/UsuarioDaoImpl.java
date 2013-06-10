@@ -25,11 +25,12 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 
 	//usuario
 	public UsuarioDTO incluirUsuario(UsuarioDTO usuarioDto) {
-		String query = "INSERT INTO usuario(NOME,LOGIN,SENHA)values(:nome ,:login ,:senha)";
+		String query = "INSERT INTO usuarios (NOME,LOGIN,SENHA,tipo)values(:nome ,:login ,:senha, :tipo)";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("nome", usuarioDto.getNome());
 		param.addValue("login", usuarioDto.getLogin());
 		param.addValue("senha", usuarioDto.getSenha());
+		param.addValue("tipo", usuarioDto.getTipo());
 
 		KeyHolder key = new GeneratedKeyHolder();
 

@@ -14,7 +14,6 @@
 <head>
 <title><decorator:title default="LifeFair" /></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<link href="includes/css/master.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript"
 	src="<s:url value='/includes/js/jquery-1.7.2.min.js'/>"></script>
 <script type="text/javascript"
@@ -93,7 +92,7 @@
 					UsuarioDTO usuario = (UsuarioDTO) request.getSession().getAttribute("usuarioLogado");%>
 					<tr>
 								<td class=""><a class=""
-									href=""><strong>Meu Cadastro/Consultas</strong></a></td>
+									href=""><strong>Meu Cadastro</strong></a></td>
 											
 								<%if(usuario.getTipo().equals("med")) { %>
 									<td class=""><a class=""

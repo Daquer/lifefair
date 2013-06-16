@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import br.com.lifefair.medico.domain.MedicoDTO;
+import br.com.lifefair.paciente.domain.PacienteDTO;
 import br.com.lifefair.usuario.dao.UsuarioDao;
 import br.com.lifefair.usuario.domain.UsuarioDTO;
 
@@ -20,6 +22,8 @@ public class UsuarioAction extends ActionSupport {
 	private static final long serialVersionUID = 5858043201266765171L;
 
 	private UsuarioDTO usuarioDTO;
+	private MedicoDTO medicoDTO;
+	private PacienteDTO pacienteDTO;
 	private List<String> tipos;
 	
 	String tipo;
@@ -64,7 +68,7 @@ public class UsuarioAction extends ActionSupport {
 	//cadastro
 	public String cadastrese() {
 		tipos = new ArrayList<String>();
-		tipos.add("M&eacute;dico");
+		tipos.add("Medico");
 		tipos.add("Paciente");
 		return "cadastrese";
 	}
@@ -105,6 +109,22 @@ public class UsuarioAction extends ActionSupport {
 
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+
+	public MedicoDTO getMedicoDTO() {
+		return medicoDTO;
+	}
+
+	public void setMedicoDTO(MedicoDTO medicoDTO) {
+		this.medicoDTO = medicoDTO;
+	}
+
+	public PacienteDTO getPacienteDTO() {
+		return pacienteDTO;
+	}
+
+	public void setPacienteDTO(PacienteDTO pacienteDTO) {
+		this.pacienteDTO = pacienteDTO;
 	}
 
 }

@@ -3,6 +3,8 @@
 	<name>LifeFair</name>
 	<comment></comment>
 	<projects>
+		<project>standard</project>
+		<project>jstl</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

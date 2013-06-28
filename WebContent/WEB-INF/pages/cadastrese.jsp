@@ -29,69 +29,74 @@
 
 			<!-- Paciente -->
 			<tr class="paciente">
-				<td>Data de Nacimento <s:textfield name="dt_nasc" />
+				<td>Nome completo <s:textfield name="pacienteDTO.nome_completo" />
+				</td>
+			</tr>
+			
+			<tr class="paciente">
+				<td>Data de nascimento <s:textfield name="pacienteDTO.datanasc" />
 				</td>
 			</tr>
 			<tr class="paciente">
 				<td>
 			<tr class="paciente">
-				<td>Telefone <s:textfield name="tel_pac" />
+				<td>Telefone <s:textfield name="pacienteDTO.telefone" />
 				</td>
 			</tr>
 			<tr class="paciente">
 				<td>
 			<tr class="paciente">
-				<td>Endereço <s:textfield name="endereco_pac" />
+				<td>Endereço <s:textfield name="pacienteDTO.endereco" />
 				</td>
 			</tr>
 			<tr class="paciente">
-				<td>E-mail <s:textfield name="email_pac" />
+				<td>E-mail <s:textfield name="pacienteDTO.email" />
 				</td>
 			</tr>
 			<tr class="paciente">
-				<td>Alergias <s:textfield name="alergias" />
+				<td>Alergias <s:textfield name="pacienteDTO.alergias" />
 				</td>
 			</tr>
 			<tr class="paciente">
 				<td>
 			<tr class="paciente">
-				<td>Medico <s:textfield name="medico" />
+				<td>CRM do Medico <s:textfield name="medicoDePac" />
 				</td>
 			</tr>
 			<tr class="paciente">
-				<td>Problemas de Saúde <s:textfield name="problemas" />
+				<td>Problemas de Saúde <s:textfield name="pacienteDTO.problemas" />
 				</td>
 			</tr>
 
 			<!-- Médico -->
 			<tr class="medico">
-				<td>CPF <s:textfield name="cpf" />
+				<td>CPF <s:textfield name="medicoDTO.cpf" />
 				</td>
 			</tr>
 			<tr class="medico">
-				<td>CRM <s:textfield name="crm" />
+				<td>CRM <s:textfield name="medicoDTO.crm" />
 				</td>
 			</tr>
 			<tr class="medico">
-				<td>Local de Trabalho <s:textfield name="local_trab" />
+				<td>Local de Trabalho <s:textfield name="medicoDTO.local_trabalho" />
 				</td>
 			</tr>
 			<tr class="medico">
-				<td>Endereco <s:textfield name="endereco_med" />
+				<td>Endereco <s:textfield name="medicoDTO.endereco" />
 				</td>
 			</tr>
 			<tr class="medico">
-				<td>E-mail <s:textfield name="email_med" />
+				<td>E-mail <s:textfield name="medicoDTO.email" />
 				</td>
 			</tr>
 			<tr class="medico">
-				<td>Telefone <s:textfield name="tel_med" />
+				<td>Telefone <s:textfield name="medicoDTO.telefone" />
 				</td>
 			</tr>
-			<s:submit value="Cadastrar" />
 		</table>
 		Médico ou paciente?
-		<s:radio label="tipo" name="tipo" list="tipos" />
+		<s:radio label="tipo" name="tipo" list="tipos" /><br />
+		<s:submit value="Cadastrar" id="cadastrar" />
 		<br />
 	</form>
 </body>

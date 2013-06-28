@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
+import br.com.lifefair.com.medico.dao.MedicoDAO;
 import br.com.lifefair.medico.domain.MedicoDTO;
+import br.com.lifefair.paciente.dao.PacienteDAO;
 import br.com.lifefair.paciente.domain.PacienteDTO;
 import br.com.lifefair.usuario.dao.UsuarioDao;
 import br.com.lifefair.usuario.domain.UsuarioDTO;
@@ -25,10 +27,15 @@ public class UsuarioAction extends ActionSupport {
 	private MedicoDTO medicoDTO;
 	private PacienteDTO pacienteDTO;
 	private List<String> tipos;
+	private String tipo;
+	private String medicoDePac;
 	
-	String tipo;
 	@Autowired
-	private UsuarioDao dao;
+	private UsuarioDao usuarioDao;
+	@Autowired
+	private MedicoDAO medicoDao;
+	@Autowired
+	private PacienteDAO pacienteDao;
 	
 	//TODO Página de cadastro dinâmica para médico e paciente
 	
@@ -40,7 +47,7 @@ public class UsuarioAction extends ActionSupport {
 	
 	//Acesso à área fechada, somente possível entrar com um login
 	public String login() {
-		this.usuarioDTO = dao.logarUsuario(usuarioDTO);
+		this.usuarioDTO = usuarioDao.logarUsuario(usuarioDTO);
 		
 		if (usuarioDTO.getId() != null && !usuarioDTO.getLogin().equals("") && !usuarioDTO.getSenha().equals("")) {
 			ActionContext.getContext().getSession().put("usuarioLogado", usuarioDTO);			
@@ -75,7 +82,17 @@ public class UsuarioAction extends ActionSupport {
 	
 	public String cadastro() {
 		usuarioDTO.setTipo(tipo.equals("Paciente") ? "pac" : "med");
-		this.usuarioDTO = dao.incluirUsuario(usuarioDTO);
+		this.usuarioDTO = usuarioDao.incluirUsuario(usuarioDTO);
+		if(tipo.equals("Medico")){
+			medicoDTO.setFk_usuario(usuarioDao.getUsuarioByLogin(usuarioDTO).getId());
+			medicoDao.incluirMedico(medicoDTO);
+		} else {
+			pacienteDTO.setFk_medico(medicoDao.getMedicoByCrm(medicoDePac).getPk_medico());
+			pacienteDTO.setFk_usuario(usuarioDao.getUsuarioByLogin(usuarioDTO).getId());
+			pacienteDao.incluirPaciente(pacienteDTO);
+		}
+	
+	
 		return "cadastrado";
 	}
 	
@@ -88,11 +105,11 @@ public class UsuarioAction extends ActionSupport {
 	}
 
 	public UsuarioDao getDao() {
-		return dao;
+		return usuarioDao;
 	}
 
 	public void setDao(UsuarioDao dao) {
-		this.dao = dao;
+		this.usuarioDao = dao;
 	}
 
 	public List<String> getTipos() {
@@ -125,6 +142,38 @@ public class UsuarioAction extends ActionSupport {
 
 	public void setPacienteDTO(PacienteDTO pacienteDTO) {
 		this.pacienteDTO = pacienteDTO;
+	}
+
+	public UsuarioDao getUsuarioDao() {
+		return usuarioDao;
+	}
+
+	public void setUsuarioDao(UsuarioDao usuarioDao) {
+		this.usuarioDao = usuarioDao;
+	}
+
+	public MedicoDAO getMedicoDao() {
+		return medicoDao;
+	}
+
+	public void setMedicoDao(MedicoDAO medicoDao) {
+		this.medicoDao = medicoDao;
+	}
+
+	public String getMedicoDePac() {
+		return medicoDePac;
+	}
+
+	public void setMedicoDePac(String medicoDePac) {
+		this.medicoDePac = medicoDePac;
+	}
+
+	public PacienteDAO getPacienteDao() {
+		return pacienteDao;
+	}
+
+	public void setPacienteDao(PacienteDAO pacienteDao) {
+		this.pacienteDao = pacienteDao;
 	}
 
 }

@@ -16,6 +16,8 @@ public interface UsuarioDao {
 	public List<UsuarioDTO> getBuscaResultado(UsuarioDTO usuarioDto);
 
 	public UsuarioDTO getUsuario(UsuarioDTO usuarioDto);
+	
+	public UsuarioDTO getUsuarioByLogin(UsuarioDTO usuarioDto);
 
 	public boolean excluirUsuario(Integer id);
 

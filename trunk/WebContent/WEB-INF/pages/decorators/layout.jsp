@@ -15,7 +15,7 @@
 <title><decorator:title default="LifeFair" /></title>
 <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
 <script type="text/javascript"
-	src="<s:url value='/includes/js/jquery-1.7.2.min.js'/>"></script>
+	src="<s:url value='/includes/js/jquery-1.7.2.js'/>"></script>
 <script type="text/javascript"
 	src="<s:url value='/includes/js/jquery.maskedinput-1.2.2.js'/>"></script>
 <script type="text/javascript"

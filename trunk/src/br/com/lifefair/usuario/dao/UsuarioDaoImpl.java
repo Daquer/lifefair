@@ -16,6 +16,8 @@ import org.springframework.stereotype.Repository;
 
 import br.com.lifefair.connection.AbstractDaoSql;
 import br.com.lifefair.usuario.domain.UsuarioDTO;
+import br.com.lifefair.usuario.domain.UsuarioDTORowMapper;
+
 
 @Repository
 public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
@@ -47,7 +49,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 
 	public UsuarioDTO alterarUsuario(UsuarioDTO usuarioDto) {
 
-		String query = "UPDATE usuario SET NOME= :nome,LOGIN= :login, SENHA= :senha WHERE id= :id";
+		String query = "UPDATE usuarios SET NOME= :nome,LOGIN= :login, SENHA= :senha WHERE id= :id";
 
 		UsuarioDTO temp;
 
@@ -76,7 +78,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 
 	public boolean excluirUsuario(Integer id) {
 
-		String query = "DELETE FROM usuario WHERE id= :id";
+		String query = "DELETE FROM usuarios WHERE id= :id";
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("id", id);
 		int result = jdbcTemplate.update(query, param);
@@ -92,13 +94,22 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 	public UsuarioDTO getUsuario(UsuarioDTO usuarioDto) {
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("select id as id,NOME as nome, LOGIN as login, SENHA as senha from usuario where id=:id");
+		sql.append("select id as id,NOME as nome, LOGIN as login, SENHA as senha from usuarios where id=:id");
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("id", usuarioDto.getId());
-		return usuarioDto;
+		return jdbcTemplate.queryForObject(sql.toString(), param, new UsuarioDTORowMapper());
 
 	}
 
+	public UsuarioDTO getUsuarioByLogin(UsuarioDTO usuarioDto){
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select id as id,NOME as nome, LOGIN as login, SENHA as senha from usuarios where login=:login");
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("login", usuarioDto.getLogin());
+		return jdbcTemplate.queryForObject(sql.toString(), param, new UsuarioDTORowMapper());
+	}
+	
 	public List<UsuarioDTO> getLista(UsuarioDTO usuarioDto) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select id as id,NOME as nome, LOGIN as login, SENHA as senha from usuario");
@@ -132,7 +143,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 	public List<UsuarioDTO> getBuscaResultado(UsuarioDTO usuarioDto) {
 
 		//StringBuilder sql = new StringBuilder();
-		String sql = "select id as id, NOME as nome, LOGIN as login, SENHA as senha from usuario where NOME like :nome";
+		String sql = "select id as id, NOME as nome, LOGIN as login, SENHA as senha from usuarios where NOME like :nome";
 		//sql.append("SELECT id AS id, NOME AS NOME, LOGIN AS LOGIN, SENHA AS SENHA FROM usuario");
 		//pegando valores do formulario
 		MapSqlParameterSource param = new MapSqlParameterSource();

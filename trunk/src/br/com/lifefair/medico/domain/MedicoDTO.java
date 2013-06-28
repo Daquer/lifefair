@@ -8,6 +8,7 @@ public class MedicoDTO {
 	private String endereco;
 	private String email;
 	private String telefone;
+	private double fk_usuario;
 	
 	public double getPk_medico() {
 		return pk_medico;
@@ -50,6 +51,12 @@ public class MedicoDTO {
 	}
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
+	}
+	public double getFk_usuario() {
+		return fk_usuario;
+	}
+	public void setFk_usuario(double fk_usuario) {
+		this.fk_usuario = fk_usuario;
 	}
 	
 	

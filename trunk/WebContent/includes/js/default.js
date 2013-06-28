@@ -23,15 +23,22 @@ $(document).ready( function() {
 		    }    
 		});
 		
+		$("#cadastrar").hide();
+		$(".medico").hide();
 		$("#tipoPaciente").click( function ChangeCadastro(){
 			$(".medico").hide();
 			$(".paciente").show();
+			$("#cadastrar").show();
+			$("#cadastrar").val("Cadastrar Paciente");
 		});
 		
+		$(".paciente").hide();
 		$("label[for=tipoMedico]").html("M&eacute;dico");
 		$("#tipoMedico").click( function ChangeCadastro(){
 			$(".medico").show();
 			$(".paciente").hide();
+			$("#cadastrar").show();
+			$("#cadastrar").val("Cadastrar Médico");
 		});
 });
 		

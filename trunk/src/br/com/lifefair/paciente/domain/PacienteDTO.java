@@ -9,7 +9,7 @@ public class PacienteDTO {
 	private String endereco;
 	private String email;
 	private String alergias;
-	private String fk_medico;
+	private double fk_medico;
 	private String saudeprobs;
 	
 	public double getPk_paciente() {
@@ -60,16 +60,17 @@ public class PacienteDTO {
 	public void setAlergias(String alergias) {
 		this.alergias = alergias;
 	}
-	public String getFk_medico() {
-		return fk_medico;
-	}
-	public void setFk_medico(String fk_medico) {
-		this.fk_medico = fk_medico;
-	}
+	
 	public String getSaudeprobs() {
 		return saudeprobs;
 	}
 	public void setSaudeprobs(String saudeprobs) {
 		this.saudeprobs = saudeprobs;
+	}
+	public double getFk_medico() {
+		return fk_medico;
+	}
+	public void setFk_medico(double fk_medico) {
+		this.fk_medico = fk_medico;
 	}
 }

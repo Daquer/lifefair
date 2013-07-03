@@ -8,6 +8,19 @@
 
 	<package name="default" namespace="/" extends="bsad-default">
 
+		<interceptors>
+			<interceptor name="autorizador" class="br.com.lifefair.interceptor.LoginInterceptor" />
+			<interceptor-stack name="interceptador">
+				<interceptor-ref name="autorizador" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<global-results>
+			<result name="invalido">/WEB-INF/pages/home.jsp</result>
+		</global-results>
+		
+		
 		<!-- Usuario -->
 
 		<action name="inicio" class="usuarioAction" method="inicio">
@@ -32,11 +45,23 @@
 		
 		<action name="cadastro" class="usuarioAction" method="cadastro">
 			<result name="cadastrado">/WEB-INF/pages/home.jsp</result>
+			<result name="erroSenha">/WEB-INF/pages/cadastrese.jsp</result>
 		</action>
 		
 		<!-- Medicamento -->
 		<action name="buscaMedicamento" class="medicamentoAction" method="buscaMedicamento">
+			<interceptor-ref name="interceptador" />
 			<result name="sucesso">/WEB-INF/pages/resultadoBuscaMedicamento.jsp</result>
+		</action>
+		
+		<action name="mostrarMedicamento" class="medicamentoAction" method="mostrarMedicamento">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/mostraMedicamento.jsp</result>
+		</action>
+		
+		<action name="adicionarCarrinho" class="medicamentoAction" method="adicionarCarrinho">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/mostraMedicamento.jsp</result>
 		</action>
 	</package>
 </struts>

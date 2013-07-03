@@ -22,21 +22,14 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 	
 	public List<MedicamentoDTO> getBuscaMedicamento(MedicamentoDTO medicamentoDTO) {
 
-		//StringBuilder sql = new StringBuilder();
+
 		String sql = "select id as id, NOME as nome, TARJA as tarja, PRINCIPIOS_ATIVOS as principios_ativos, " +
-				"MG_POR_G as mg_por_g, DTFABRIC as dtfabric, VENCIMENTO as vencimento, PESO as peso, DESCRICAO_DE_USO as descricao_de_uso from medicamentos where NOME like :nome";
-		//sql.append("SELECT id AS id, NOME AS NOME, LOGIN AS LOGIN, SENHA AS SENHA FROM usuario");
-		//pegando valores do formulario
+				"MG_POR_G as mg_por_g, DTFABRIC as dtfabric, VENCIMENTO as vencimento, PESO as peso, DESCRICAO_DE_USO as descricao_de_uso, preco as preco from medicamentos where NOME like :nome";
+
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("nome", "%" + medicamentoDTO.getNome() + "%");
-		//		verificacao para montagem da query
 
-		//		if (!usuarioDto.getNome().isEmpty()) {
-		//			sql.append(" WHERE NOME = :nome ");
-		//			param.addValue("nome", usuarioDto.getNome());
-		//		}
 		return jdbcTemplate.query(sql, param, new RowMapper<MedicamentoDTO>() {
-			//return jdbcTemplate.query(sql.toString(), new MapSqlParameterSource(), new RowMapper<UsuarioDTO>() {
 			public MedicamentoDTO mapRow(ResultSet rs, int paramInt) throws SQLException {
 				MedicamentoDTO medicamento = new MedicamentoDTO();
 
@@ -49,6 +42,7 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 				medicamento.setVencimento(rs.getString("vencimento"));
 				medicamento.setPeso(rs.getDouble("peso"));
 				medicamento.setDescricao_de_uso(rs.getString("descricao_de_uso"));
+				medicamento.setPreco(rs.getDouble("preco"));
 				
 				return medicamento;
 			}
@@ -56,7 +50,36 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 		});
 
 	}
+	
+	public MedicamentoDTO getMedicamento(MedicamentoDTO medicamentoDto) {
+		StringBuilder sql = new StringBuilder();
 
+		sql.append("select id as id, NOME as nome, TARJA as tarja, PRINCIPIOS_ATIVOS as principios_ativos, " +
+				"MG_POR_G as mg_por_g, DTFABRIC as dtfabric, VENCIMENTO as vencimento, PESO as peso, DESCRICAO_DE_USO as descricao_de_uso, preco as preco from medicamentos where id=:id");
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("id", medicamentoDto.getId());
+		return jdbcTemplate.queryForObject(sql.toString(), param, new RowMapper<MedicamentoDTO>() {
+			public MedicamentoDTO mapRow(ResultSet rs, int paramInt) throws SQLException {
+				MedicamentoDTO medicamento = new MedicamentoDTO();
+
+				medicamento.setId(rs.getLong("id"));
+				medicamento.setNome(rs.getString("NOME"));
+				medicamento.setTarja(rs.getString("tarja"));
+				medicamento.setPrincipios_ativos(rs.getString("principios_ativos"));
+				medicamento.setMg_por_g(rs.getInt("mg_por_g"));
+				medicamento.setDtfabric(rs.getString("dtfabric"));
+				medicamento.setVencimento(rs.getString("vencimento"));
+				medicamento.setPeso(rs.getDouble("peso"));
+				medicamento.setDescricao_de_uso(rs.getString("descricao_de_uso"));
+				medicamento.setPreco(rs.getDouble("preco"));
+				
+				return medicamento;
+			}
+
+		});
+
+	}
+	
 	public DataSource getDataSource() {
 		return dataSource;
 	}

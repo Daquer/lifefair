@@ -10,6 +10,7 @@
 <body>
 	<table border="1">
 		<tr>
+			<th>Comprar</th>
 			<th>Nome</th>
 			<th>Tarja</th>
 			<th>Princípios Ativos</th>
@@ -18,9 +19,11 @@
 			<th>Vencimento</th>
 			<th>Peso</th>
 			<th>Descricao de uso</th>
+			<th>Preço</th>
 		</tr>
 		<s:iterator value="medicamentos">
 			<tr>
+				<td><a href='mostrarMedicamento.do?medicamentoDTO.id=<s:property value="id" />'>Exibir</a></td>
 				<td><s:property 
 						value="nome" /></td>
 				<td><s:property 
@@ -37,6 +40,8 @@
 						value="peso" /></td>
 				<td><s:property 
 						value="descricao_de_uso" /></td>
+				<td><s:property 
+						value="preco" /></td>						
 			</tr>
 		</s:iterator>
 </table>

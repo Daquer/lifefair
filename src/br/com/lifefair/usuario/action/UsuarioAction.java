@@ -8,6 +8,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
 import br.com.lifefair.com.medico.dao.MedicoDAO;
+import br.com.lifefair.medicamento.domain.CarrinhoDTO;
+import br.com.lifefair.medicamento.domain.MedicamentoDTO;
 import br.com.lifefair.medico.domain.MedicoDTO;
 import br.com.lifefair.paciente.dao.PacienteDAO;
 import br.com.lifefair.paciente.domain.PacienteDTO;
@@ -26,9 +28,12 @@ public class UsuarioAction extends ActionSupport {
 	private UsuarioDTO usuarioDTO;
 	private MedicoDTO medicoDTO;
 	private PacienteDTO pacienteDTO;
+	private CarrinhoDTO carrinho;
 	private List<String> tipos;
 	private String tipo;
 	private String medicoDePac;
+	private String confirmarSenha;
+	
 	
 	@Autowired
 	private UsuarioDao usuarioDao;
@@ -48,9 +53,12 @@ public class UsuarioAction extends ActionSupport {
 	//Acesso à área fechada, somente possível entrar com um login
 	public String login() {
 		this.usuarioDTO = usuarioDao.logarUsuario(usuarioDTO);
+		this.carrinho = new CarrinhoDTO();
+		this.carrinho.setItems(new ArrayList<MedicamentoDTO>());
 		
 		if (usuarioDTO.getId() != null && !usuarioDTO.getLogin().equals("") && !usuarioDTO.getSenha().equals("")) {
-			ActionContext.getContext().getSession().put("usuarioLogado", usuarioDTO);			
+			ActionContext.getContext().getSession().put("usuarioLogado", usuarioDTO);
+			ActionContext.getContext().getSession().put("carrinhoLogado", carrinho);
 			
 			if (usuarioDTO.getTipo().equals("med")) {
 				return "autenticado_med";
@@ -81,19 +89,26 @@ public class UsuarioAction extends ActionSupport {
 	}
 	
 	public String cadastro() {
-		usuarioDTO.setTipo(tipo.equals("Paciente") ? "pac" : "med");
-		this.usuarioDTO = usuarioDao.incluirUsuario(usuarioDTO);
-		if(tipo.equals("Medico")){
-			medicoDTO.setFk_usuario(usuarioDao.getUsuarioByLogin(usuarioDTO).getId());
-			medicoDao.incluirMedico(medicoDTO);
+		if(confirmarSenha.equals(usuarioDTO.getSenha())) {
+			usuarioDTO.setTipo(tipo.equals("Paciente") ? "pac" : "med");
+			this.usuarioDTO = usuarioDao.incluirUsuario(usuarioDTO);
+			if(tipo.equals("Medico")) {
+				medicoDTO.setFk_usuario(usuarioDao.getUsuarioByLogin(usuarioDTO).getId());
+				medicoDao.incluirMedico(medicoDTO);
+			} else {
+				pacienteDTO.setFk_medico(medicoDao.getMedicoByCrm(medicoDePac).getPk_medico());
+				pacienteDTO.setFk_usuario(usuarioDao.getUsuarioByLogin(usuarioDTO).getId());
+				pacienteDao.incluirPaciente(pacienteDTO);
+			}
+		
+			return "cadastrado";
 		} else {
-			pacienteDTO.setFk_medico(medicoDao.getMedicoByCrm(medicoDePac).getPk_medico());
-			pacienteDTO.setFk_usuario(usuarioDao.getUsuarioByLogin(usuarioDTO).getId());
-			pacienteDao.incluirPaciente(pacienteDTO);
+			addActionError("A senha e a confirmação não batem.");					
+			tipos = new ArrayList<String>();
+			tipos.add("Medico");
+			tipos.add("Paciente");
+			return "erroSenha";
 		}
-	
-	
-		return "cadastrado";
 	}
 	
 	public UsuarioDTO getUsuarioDTO() {
@@ -174,6 +189,22 @@ public class UsuarioAction extends ActionSupport {
 
 	public void setPacienteDao(PacienteDAO pacienteDao) {
 		this.pacienteDao = pacienteDao;
+	}
+
+	public String getConfirmarSenha() {
+		return confirmarSenha;
+	}
+
+	public void setConfirmarSenha(String confirmarSenha) {
+		this.confirmarSenha = confirmarSenha;
+	}
+
+	public CarrinhoDTO getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(CarrinhoDTO carrinho) {
+		this.carrinho = carrinho;
 	}
 
 }

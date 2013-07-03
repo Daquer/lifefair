@@ -8,7 +8,7 @@
 <title>Cadastre-se</title>
 </head>
 <body>
-	<form action="cadastro.do" method="post">
+	<form action="cadastro.do" method="post" id="formCadastro">
 		<table>
 			<tr>
 				<td>Nome <s:textfield name="usuarioDTO.nome" />
@@ -23,7 +23,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td>Confirmar senha <s:password />
+				<td>Confirmar senha <s:password name="confirmarSenha"/>
 				</td>
 			</tr>
 

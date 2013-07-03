@@ -10,6 +10,7 @@ public class MedicamentoDTO {
 	public String vencimento;
 	public double peso;
 	public String descricao_de_uso;
+	public double preco;
 	
 	public Long getId() {
 		return id;
@@ -64,5 +65,11 @@ public class MedicamentoDTO {
 	}
 	public void setDescricao_de_uso(String descricao_de_uso) {
 		this.descricao_de_uso = descricao_de_uso;
+	}
+	public double getPreco() {
+		return preco;
+	}
+	public void setPreco(double preco) {
+		this.preco = preco;
 	}
 }

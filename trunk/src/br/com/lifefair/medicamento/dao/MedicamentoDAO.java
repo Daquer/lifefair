@@ -8,5 +8,7 @@ import br.com.lifefair.medicamento.domain.MedicamentoDTO;
 public interface MedicamentoDAO {
 	
 	public List<MedicamentoDTO> getBuscaMedicamento(MedicamentoDTO medicamentoDTO);
+	
+	public MedicamentoDTO getMedicamento(MedicamentoDTO medicamentoDto);
 
 }

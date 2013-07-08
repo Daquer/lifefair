@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 
 import br.com.lifefair.medicamento.dao.MedicamentoDAO;
 import br.com.lifefair.medicamento.domain.CarrinhoDTO;
+import br.com.lifefair.medicamento.domain.ItemMedicamento;
 import br.com.lifefair.medicamento.domain.MedicamentoDTO;
 import br.com.lifefair.usuario.domain.UsuarioDTO;
 
@@ -25,6 +26,7 @@ public class MedicamentoAction extends ActionSupport {
 	private MedicamentoDTO medicamentoDTO;
 	private List<MedicamentoDTO> medicamentos;
 	private CarrinhoDTO carrinho;
+	private List<ItemMedicamento> itemsCarrinho;
 
 	//nome do medicamento para busca
 	private String nome;
@@ -40,10 +42,79 @@ public class MedicamentoAction extends ActionSupport {
 	public String adicionarCarrinho() {
 		//TODO ver items no carrinho
 		carrinho = (CarrinhoDTO) ActionContext.getContext().getSession().get("carrinhoLogado");
-		List<MedicamentoDTO> items = carrinho.getItems();
-		items.add(dao.getMedicamento(medicamentoDTO));
-		carrinho.setItems(items);
 		
+		MedicamentoDTO medicamento = dao.getMedicamento(medicamentoDTO);
+		
+		ItemMedicamento item = new ItemMedicamento();
+		item.setMedicamento(medicamento);
+		
+		itemsCarrinho = carrinho.getItems();
+		
+		
+		boolean jaExiste = false;
+		if(itemsCarrinho.size() > 0) {
+			for(int i = 0; i < itemsCarrinho.size(); i++) { //Verificacao se a quantidade vira de um novo item ou um pre-existente
+				if(itemsCarrinho.get(i).getMedicamento().getId().equals(item.getMedicamento().getId())) {//Se já existe id igual
+					item = itemsCarrinho.get(i);
+					item.setQuantidade(item.getQuantidade() + 1);
+					jaExiste = true;
+				}
+			}
+		}
+		
+		if(jaExiste == false) {
+			item.setQuantidade(1);
+			itemsCarrinho.add(item);
+		}
+		
+		//somar o total do carrinho
+		double total = 0.00;
+		
+		for(int i=0; i < itemsCarrinho.size(); i++) {
+			total += (itemsCarrinho.get(i).getMedicamento().getPreco() * itemsCarrinho.get(i).getQuantidade());
+		}
+		carrinho.setTotal(total);
+		carrinho.setItems(itemsCarrinho); //atualiza a lista de itens do carrinho
+		return "sucesso";
+	}
+	
+	public String subtrairCarrinho() {
+		carrinho = (CarrinhoDTO) ActionContext.getContext().getSession().get("carrinhoLogado");
+		
+		MedicamentoDTO medicamento = dao.getMedicamento(medicamentoDTO);
+		
+		ItemMedicamento item = new ItemMedicamento();
+		item.setMedicamento(medicamento);
+		
+		itemsCarrinho = carrinho.getItems();
+		
+		if(itemsCarrinho.size() > 0 ) {
+			for(int i = 0; i < itemsCarrinho.size(); i++) { //Verificacao se a quantidade vira de um novo item ou um pre-existente
+				if(itemsCarrinho.get(i).getMedicamento().getId().equals(item.getMedicamento().getId())) {//Se já existe id igual
+					item = itemsCarrinho.get(i);
+					item.setQuantidade(item.getQuantidade() - 1);
+					if(item.getQuantidade() == 0) {
+						itemsCarrinho.remove(i);
+					}
+				}
+			}
+		}
+		
+		//somar o total do carrinho
+		double total = 0.00;
+		
+		for(int i=0; i < itemsCarrinho.size(); i++) {
+			total += (itemsCarrinho.get(i).getMedicamento().getPreco() * itemsCarrinho.get(i).getQuantidade());
+		}
+		
+		carrinho.setTotal(total);
+		carrinho.setItems(itemsCarrinho); //atualiza a lista de itens do carrinho
+		return "sucesso";
+	}
+	
+	public String mostrarCarrinho() {
+		carrinho = (CarrinhoDTO) ActionContext.getContext().getSession().get("carrinhoLogado");
+		itemsCarrinho = carrinho.getItems();
 		return "sucesso";
 	}
 	
@@ -99,5 +170,17 @@ public class MedicamentoAction extends ActionSupport {
 
 	public void setCarrinho(CarrinhoDTO carrinho) {
 		this.carrinho = carrinho;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+
+	public List<ItemMedicamento> getItemsCarrinho() {
+		return itemsCarrinho;
+	}
+
+	public void setItemsCarrinho(List<ItemMedicamento> itemsCarrinho) {
+		this.itemsCarrinho = itemsCarrinho;
 	}
 }

@@ -5,20 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Resultado da Busca</title>
+<title>Resultado da Busca por <s:property value="nome" /></title>
 </head>
 <body>
 	<table border="1">
 		<tr>
 			<th>Comprar</th>
 			<th>Nome</th>
-			<th>Tarja</th>
+			<!-- th>Tarja</th>
 			<th>Princípios Ativos</th>
 			<th>mg/g</th>
 			<th>Data de fabricação</th>
 			<th>Vencimento</th>
 			<th>Peso</th>
-			<th>Descricao de uso</th>
+			<th>Descricao de uso</th-->
 			<th>Preço</th>
 		</tr>
 		<s:iterator value="medicamentos">
@@ -26,7 +26,7 @@
 				<td><a href='mostrarMedicamento.do?medicamentoDTO.id=<s:property value="id" />'>Exibir</a></td>
 				<td><s:property 
 						value="nome" /></td>
-				<td><s:property 
+				<!-- td><s:property 
 						value="tarja" /></td>
 				<td><s:property 
 						value="principios_ativos" /></td>
@@ -39,7 +39,7 @@
 				<td><s:property 
 						value="peso" /></td>
 				<td><s:property 
-						value="descricao_de_uso" /></td>
+						value="descricao_de_uso" /></td -->
 				<td><s:property 
 						value="preco" /></td>						
 			</tr>

@@ -61,7 +61,17 @@
 		
 		<action name="adicionarCarrinho" class="medicamentoAction" method="adicionarCarrinho">
 			<interceptor-ref name="interceptador" />
-			<result name="sucesso">/WEB-INF/pages/mostraMedicamento.jsp</result>
+			<result name="sucesso">/WEB-INF/pages/listaCarrinho.jsp</result>
+		</action>
+		
+		<action name="subtrairCarrinho" class="medicamentoAction" method="subtrairCarrinho">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/listaCarrinho.jsp</result>
+		</action>
+		
+		<action name="mostrarCarrinho" class="medicamentoAction" method="mostrarCarrinho">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/listaCarrinho.jsp</result>
 		</action>
 	</package>
 </struts>

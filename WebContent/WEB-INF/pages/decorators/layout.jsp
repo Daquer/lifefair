@@ -51,7 +51,7 @@
 		</div>
 		<div id="menu">
 
-			<table border="1">
+			<table>
 				<tbody>
 					<%
 						if (request.getSession().getAttribute("usuarioLogado") == null) {
@@ -115,15 +115,15 @@
 							class="white_bold"></b><a href="logoff.do" class="bemvindo">
 								<sub>Logout</sub>
 						</a></td>
-						<td rowspan="2"><img src="includes/images/shopping_cart.png"
+						<td rowspan="2"><a href="mostrarCarrinho.do"><img src="includes/images/shopping_cart.png"
 							width="30px" height="30px" />
 							<%
 								if (request.getSession().getAttribute("carrinhoLogado") !=null){
 									CarrinhoDTO carrinho = (CarrinhoDTO) request.getSession()
 											.getAttribute("carrinhoLogado");
-									out.println(carrinho.getItems().size() + " items");
+									out.println(carrinho.getItems().size() + (carrinho.getItems().size() == 1 ? " item" :" items"));
 								}
-							%></td>
+							%></a></td>
 					</tr>
 					<%
 						}

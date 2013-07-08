@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 
 import br.com.lifefair.com.medico.dao.MedicoDAO;
 import br.com.lifefair.medicamento.domain.CarrinhoDTO;
-import br.com.lifefair.medicamento.domain.MedicamentoDTO;
+import br.com.lifefair.medicamento.domain.ItemMedicamento;
 import br.com.lifefair.medico.domain.MedicoDTO;
 import br.com.lifefair.paciente.dao.PacienteDAO;
 import br.com.lifefair.paciente.domain.PacienteDTO;
@@ -42,8 +42,6 @@ public class UsuarioAction extends ActionSupport {
 	@Autowired
 	private PacienteDAO pacienteDao;
 	
-	//TODO Página de cadastro dinâmica para médico e paciente
-	
 	//Acesso
 	//Acesso à home.
 	public String inicio() {
@@ -54,7 +52,7 @@ public class UsuarioAction extends ActionSupport {
 	public String login() {
 		this.usuarioDTO = usuarioDao.logarUsuario(usuarioDTO);
 		this.carrinho = new CarrinhoDTO();
-		this.carrinho.setItems(new ArrayList<MedicamentoDTO>());
+		this.carrinho.setItems(new ArrayList<ItemMedicamento>());
 		
 		if (usuarioDTO.getId() != null && !usuarioDTO.getLogin().equals("") && !usuarioDTO.getSenha().equals("")) {
 			ActionContext.getContext().getSession().put("usuarioLogado", usuarioDTO);

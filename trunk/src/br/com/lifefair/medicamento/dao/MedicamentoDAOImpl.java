@@ -24,7 +24,8 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 
 
 		String sql = "select id as id, NOME as nome, TARJA as tarja, PRINCIPIOS_ATIVOS as principios_ativos, " +
-				"MG_POR_G as mg_por_g, DTFABRIC as dtfabric, VENCIMENTO as vencimento, PESO as peso, DESCRICAO_DE_USO as descricao_de_uso, preco as preco from medicamentos where NOME like :nome";
+				"MG_POR_G as mg_por_g, DTFABRIC as dtfabric, VENCIMENTO as vencimento, PESO as peso, DESCRICAO_DE_USO as descricao_de_uso, preco as preco, imagem as imagem" +
+				" from medicamentos where NOME like :nome";
 
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("nome", "%" + medicamentoDTO.getNome() + "%");
@@ -43,6 +44,7 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 				medicamento.setPeso(rs.getDouble("peso"));
 				medicamento.setDescricao_de_uso(rs.getString("descricao_de_uso"));
 				medicamento.setPreco(rs.getDouble("preco"));
+				medicamento.setImagem(rs.getString("imagem"));
 				
 				return medicamento;
 			}
@@ -55,7 +57,7 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 		StringBuilder sql = new StringBuilder();
 
 		sql.append("select id as id, NOME as nome, TARJA as tarja, PRINCIPIOS_ATIVOS as principios_ativos, " +
-				"MG_POR_G as mg_por_g, DTFABRIC as dtfabric, VENCIMENTO as vencimento, PESO as peso, DESCRICAO_DE_USO as descricao_de_uso, preco as preco from medicamentos where id=:id");
+				"MG_POR_G as mg_por_g, DTFABRIC as dtfabric, VENCIMENTO as vencimento, PESO as peso, DESCRICAO_DE_USO as descricao_de_uso, preco as preco, imagem as imagem from medicamentos where id=:id");
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("id", medicamentoDto.getId());
 		return jdbcTemplate.queryForObject(sql.toString(), param, new RowMapper<MedicamentoDTO>() {
@@ -72,6 +74,7 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 				medicamento.setPeso(rs.getDouble("peso"));
 				medicamento.setDescricao_de_uso(rs.getString("descricao_de_uso"));
 				medicamento.setPreco(rs.getDouble("preco"));
+				medicamento.setImagem(rs.getString("imagem"));
 				
 				return medicamento;
 			}
@@ -79,6 +82,17 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 		});
 
 	}
+	
+	/*public byte[] getImageFromBlob(Blob blob) { //TODO metodo Teste, talvez seja usado o ajax (conceito parece errado, pois ainda assim deve vir da action)
+		byte[] imgData = null;
+		try {
+			imgData = blob.getBytes(1, (int) blob.length());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return imgData;
+	}*/
 	
 	public DataSource getDataSource() {
 		return dataSource;

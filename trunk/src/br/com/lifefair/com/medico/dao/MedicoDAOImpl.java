@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import br.com.lifefair.connection.AbstractDaoSql;
 import br.com.lifefair.medico.domain.MedicoDTO;
 import br.com.lifefair.medico.domain.MedicoDTORowMapper;
+import br.com.lifefair.usuario.domain.UsuarioDTO;
 
 @Repository
 public class MedicoDAOImpl extends AbstractDaoSql implements MedicoDAO {
@@ -48,8 +49,36 @@ public class MedicoDAOImpl extends AbstractDaoSql implements MedicoDAO {
 
 	@Override
 	public MedicoDTO alterarMedico(MedicoDTO medicoDto) {
-		// TODO Auto-generated method stub
-		return null;
+
+		String query = "UPDATE medicos SET cpf = :cpf,local_trabalho = :local_trabalho,endereco = :endereco," +
+				"email = :email,telefone = :telefone WHERE pk_medico = :pk_medico";
+
+		MedicoDTO temp;
+
+		MapSqlParameterSource param = new MapSqlParameterSource();
+
+		temp = getMedico(medicoDto);
+
+		if (temp != null) {
+			
+		param.addValue("cpf", medicoDto.getCpf());
+		param.addValue("crm", medicoDto.getCrm());
+		param.addValue("local_trabalho", medicoDto.getLocal_trabalho());
+		param.addValue("endereco", medicoDto.getEndereco());
+		param.addValue("email", medicoDto.getEmail());
+		param.addValue("telefone", medicoDto.getTelefone());
+		param.addValue("fk_usuario", medicoDto.getFk_usuario());
+		
+		KeyHolder key = new GeneratedKeyHolder();
+		jdbcTemplate.update(query, param, key);
+		//usuarioDto.setId(key.getKey().longValue()); //Adicionado depois
+
+		return medicoDto;
+		} else {
+	
+			throw new RuntimeException();
+		}
+		
 	}
 
 	@Override
@@ -64,7 +93,7 @@ public class MedicoDAOImpl extends AbstractDaoSql implements MedicoDAO {
 		return null;
 	}
 
-	
+	@Override
 	public MedicoDTO getMedicoByCrm(String crm) {
 		StringBuilder sql = new StringBuilder();
 
@@ -75,9 +104,23 @@ public class MedicoDAOImpl extends AbstractDaoSql implements MedicoDAO {
 	}
 	
 	@Override
+	public MedicoDTO getMedicoByUsuario(UsuarioDTO usuarioDTO) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select * from medicos where fk_usuario=:idFk");
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("idFk", usuarioDTO.getId());
+		return jdbcTemplate.queryForObject(sql.toString(), param, new MedicoDTORowMapper());
+	}
+	
+	@Override
 	public MedicoDTO getMedico(MedicoDTO medicoDto) {
-		// TODO Auto-generated method stub
-		return null;
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select * from medicos where pk_medcio=:pk_medico");
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("pk_medico", medicoDto.getPk_medico());
+		return jdbcTemplate.queryForObject(sql.toString(), param, new MedicoDTORowMapper());
 	}
 
 	@Override

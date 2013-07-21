@@ -31,28 +31,35 @@
 			window.location.href = string;
 		}
 	}
+	
+	function compraPagamento() {
+		window.location.assign('compraPagamento.do');
+	}
 </script>
 </head>
 <body>
 	<h1>Carrinho</h1>
 	<table>
 		<tr>
+			<th>Imagem</th>
 			<th>Nome</th>
 			<th>Preco</th>
 			<th>Quantidade</th>
 			<th>Comprar</th>
 		</tr>
-		<s:iterator value="itemsCarrinho">
+		<s:iterator value="itemsCarrinho" var="item">
+		 <!-- possibilidade para usar imagem na iteração -->
 				<tr>
+					<td><img src="<s:property value="medicamento.imagem" />" /></td>
 					<td><s:property value="medicamento.nome" /></td>
 					<td><s:property value="medicamento.preco" /></td>
 					<td><input type="button" value="-" onclick="subtrairQuantidade(<s:property value="medicamento.id" />)" /> <span id="<s:property value="medicamento.id" />"><s:property value="quantidade" /></span>
 					<input type="button" value="+" onclick="adicionaQuantidade(<s:property value="medicamento.id" />)" /></td>
-					<td><input type="button" value="Comprar" /></td>
+					
 				</tr>
 		</s:iterator>
 		<tr><td>Total: <%CarrinhoDTO carrinho = (CarrinhoDTO) request.getSession().getAttribute("carrinhoLogado"); 
-						out.print(String.format("%.2f",carrinho.getTotal()));%></td></tr>
+						out.print(String.format("%.2f",carrinho.getTotal()));%> <td><input type="button" value="Finalizar compra" onclick="compraPagamento()" /></td></td></tr>
 	</table>
 </body>
 </html>

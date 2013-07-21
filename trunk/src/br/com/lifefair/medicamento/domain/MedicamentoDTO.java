@@ -1,5 +1,6 @@
 package br.com.lifefair.medicamento.domain;
 
+
 public class MedicamentoDTO {
 	public Long id;
 	public String nome;
@@ -11,6 +12,7 @@ public class MedicamentoDTO {
 	public double peso;
 	public String descricao_de_uso;
 	public double preco;
+	public String imagem;
 	
 	public Long getId() {
 		return id;
@@ -72,4 +74,11 @@ public class MedicamentoDTO {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
+	public String getImagem() {
+		return imagem;
+	}
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
+	}
+	
 }

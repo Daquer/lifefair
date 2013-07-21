@@ -3,11 +3,14 @@ package br.com.lifefair.paciente.dao;
 import java.util.List;
 
 import br.com.lifefair.paciente.domain.PacienteDTO;
+import br.com.lifefair.usuario.domain.UsuarioDTO;
 
 public interface PacienteDAO {
 	
 	
 	public PacienteDTO incluirPaciente(PacienteDTO pacienteDTO);
+	
+	public PacienteDTO getPacienteByUsuario(UsuarioDTO usuarioDTO);
 
 	public PacienteDTO alterarPaciente(PacienteDTO pacienteDTO);
 

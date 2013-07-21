@@ -34,6 +34,15 @@
 			return false;
 		}
 	}
+	
+	function login(e) {
+		var tecla = (window.event) ? event.keyCode : e.which;
+		if (tecla == 13) {
+			$("#login").submit();
+		} else {
+			return false;
+		}
+	}
 </script>
 <decorator:head />
 </head>
@@ -56,7 +65,7 @@
 					<%
 						if (request.getSession().getAttribute("usuarioLogado") == null) {
 					%>
-					<s:form action="login" method="post">
+					<s:form action="login" id="login" method="post" >
 						<tr>
 							<td class=""><a class="" href=""><strong>Login</strong></a></td>
 
@@ -89,7 +98,7 @@
 									.getAttribute("usuarioLogado");
 					%>
 					<tr>
-						<td class=""><a class="" href=""><strong>Meu
+						<td class=""><a class="" href="editarCadastro.do"><strong>Meu
 									Cadastro</strong></a></td>
 
 						<%

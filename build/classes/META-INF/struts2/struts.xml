@@ -48,6 +48,10 @@
 			<result name="erroSenha">/WEB-INF/pages/cadastrese.jsp</result>
 		</action>
 		
+		<action name="editarCadastro" class="usuarioAction" method="editarCadastro">
+			<result name="sucesso">/WEB-INF/pages/editaCadastro.jsp</result>
+		</action>
+		
 		<!-- Medicamento -->
 		<action name="buscaMedicamento" class="medicamentoAction" method="buscaMedicamento">
 			<interceptor-ref name="interceptador" />
@@ -72,6 +76,11 @@
 		<action name="mostrarCarrinho" class="medicamentoAction" method="mostrarCarrinho">
 			<interceptor-ref name="interceptador" />
 			<result name="sucesso">/WEB-INF/pages/listaCarrinho.jsp</result>
+		</action>
+		
+		<action name="compraPagamento" class="medicamentoAction" method="compraPagamento">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/compraPagamento.jsp</result>
 		</action>
 	</package>
 </struts>

@@ -40,7 +40,6 @@ public class MedicamentoAction extends ActionSupport {
 	}
 	
 	public String adicionarCarrinho() {
-		//TODO ver items no carrinho
 		carrinho = (CarrinhoDTO) ActionContext.getContext().getSession().get("carrinhoLogado");
 		
 		MedicamentoDTO medicamento = dao.getMedicamento(medicamentoDTO);
@@ -118,12 +117,19 @@ public class MedicamentoAction extends ActionSupport {
 		return "sucesso";
 	}
 	
+	public String compraPagamento() {
+		//TODO criar compraPagamento.jsp com bandeiras, usar a netshoes como padrão para o carrinho.
+		carrinho = (CarrinhoDTO) ActionContext.getContext().getSession().get("carrinhoLogado");
+		usuarioDTO = (UsuarioDTO) ActionContext.getContext().getSession().get("usuarioLogado");
+		return "sucesso";
+	}
+	
 	//busca de Medicamentos
 	public String buscaMedicamento() {
 		medicamentos = dao.getBuscaMedicamento(medicamentoDTO);
 		return "sucesso";
 	}
-
+		
 	public MedicamentoDAO getDao() {
 		return dao;
 	}

@@ -26,6 +26,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 	private DataSource dataSource;
 
 	//usuario
+	@Override
 	public UsuarioDTO incluirUsuario(UsuarioDTO usuarioDto) {
 		String query = "INSERT INTO usuarios (NOME,LOGIN,SENHA,tipo)values(:nome ,:login ,:senha, :tipo)";
 		MapSqlParameterSource param = new MapSqlParameterSource();
@@ -47,6 +48,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 		return usuarioDto;
 	}
 
+	@Override
 	public UsuarioDTO alterarUsuario(UsuarioDTO usuarioDto) {
 
 		String query = "UPDATE usuarios SET NOME= :nome,LOGIN= :login, SENHA= :senha WHERE id= :id";
@@ -76,6 +78,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 
 	}
 
+	@Override
 	public boolean excluirUsuario(Integer id) {
 
 		String query = "DELETE FROM usuarios WHERE id= :id";
@@ -91,6 +94,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 		}
 	}
 
+	@Override
 	public UsuarioDTO getUsuario(UsuarioDTO usuarioDto) {
 		StringBuilder sql = new StringBuilder();
 
@@ -101,6 +105,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 
 	}
 
+	@Override
 	public UsuarioDTO getUsuarioByLogin(UsuarioDTO usuarioDto){
 		StringBuilder sql = new StringBuilder();
 
@@ -110,6 +115,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 		return jdbcTemplate.queryForObject(sql.toString(), param, new UsuarioDTORowMapper());
 	}
 	
+	@Override
 	public List<UsuarioDTO> getLista(UsuarioDTO usuarioDto) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select id as id,NOME as nome, LOGIN as login, SENHA as senha from usuario");
@@ -140,6 +146,7 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 
 	}
 
+	@Override
 	public List<UsuarioDTO> getBuscaResultado(UsuarioDTO usuarioDto) {
 
 		//StringBuilder sql = new StringBuilder();
@@ -169,7 +176,8 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 		});
 
 	}
-
+	
+	@Override
 	public UsuarioDTO logarUsuario(UsuarioDTO usuarioDto) {
 		String query = "select * from usuarios where LOGIN = :login and SENHA = :senha";
 		MapSqlParameterSource param = new MapSqlParameterSource();

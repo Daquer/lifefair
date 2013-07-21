@@ -10,6 +10,7 @@
 <body>
 	<table>
 		<tr>
+			<th>Imagem</th>
 			<th>Nome</th>
 			<th>Tarja</th>
 			<th>Princípios Ativos</th>
@@ -21,6 +22,8 @@
 			<th>Preço</th>
 		</tr>
 		<tr>
+			<td><img src="<s:property 
+					value="medicamentoDTO.imagem" />" /></td> <!-- usar ajax caso implemento um dia como blob -->
 			<td><s:property 
 					value="medicamentoDTO.nome" /></td>
 			<td><s:property 

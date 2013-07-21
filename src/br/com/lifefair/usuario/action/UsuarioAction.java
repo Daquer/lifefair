@@ -109,6 +109,23 @@ public class UsuarioAction extends ActionSupport {
 		}
 	}
 	
+	public String editarCadastro() {
+		usuarioDTO = (UsuarioDTO) ActionContext.getContext().getSession().get("usuarioLogado");
+		
+		if(usuarioDTO.getTipo().equals("med")) {
+			medicoDTO = medicoDao.getMedicoByUsuario(usuarioDTO);
+		} else {
+			pacienteDTO = pacienteDao.getPacienteByUsuario(usuarioDTO);
+		}
+		
+		return "sucesso";
+	}
+	
+	public String atualizaCadastro() {
+		//TODO metodos de atualizacao de medico e paciente implementados.
+		return "sucesso";
+	}
+	
 	public UsuarioDTO getUsuarioDTO() {
 		return usuarioDTO;
 	}

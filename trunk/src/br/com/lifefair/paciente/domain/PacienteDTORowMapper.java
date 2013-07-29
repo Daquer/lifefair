@@ -10,15 +10,15 @@ public class PacienteDTORowMapper implements RowMapper<PacienteDTO>{
 
 		PacienteDTO pacienteDTO = new PacienteDTO();
 
-		pacienteDTO.setPk_paciente(rs.getDouble("pk_paciente"));
-		pacienteDTO.setFk_usuario(rs.getDouble("fk_usuario"));
+		pacienteDTO.setPk_paciente(rs.getLong("pk_paciente"));
+		pacienteDTO.setFk_usuario(rs.getLong("fk_usuario"));
 		pacienteDTO.setNome_completo(rs.getString("nome_completo"));
 		pacienteDTO.setDatanasc(rs.getString("datanasc"));
 		pacienteDTO.setTelefone(rs.getString("telefone"));
 		pacienteDTO.setEndereco(rs.getString("endereco"));
 		pacienteDTO.setEmail(rs.getString("email"));
 		pacienteDTO.setAlergias(rs.getString("alergias"));
-		pacienteDTO.setFk_medico(rs.getDouble("fk_medico"));
+		pacienteDTO.setFk_medico(rs.getLong("fk_medico"));
 		pacienteDTO.setSaudeprobs(rs.getString("saudeprobs"));
 
 		return pacienteDTO;

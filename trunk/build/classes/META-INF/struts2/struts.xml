@@ -52,6 +52,10 @@
 			<result name="sucesso">/WEB-INF/pages/editaCadastro.jsp</result>
 		</action>
 		
+		<action name="atualizarCadastro" class="usuarioAction" method="atualizarCadastro">
+			<result name="sucesso">/WEB-INF/pages/editaCadastro.jsp</result>
+		</action>
+		
 		<!-- Medicamento -->
 		<action name="buscaMedicamento" class="medicamentoAction" method="buscaMedicamento">
 			<interceptor-ref name="interceptador" />
@@ -81,6 +85,16 @@
 		<action name="compraPagamento" class="medicamentoAction" method="compraPagamento">
 			<interceptor-ref name="interceptador" />
 			<result name="sucesso">/WEB-INF/pages/compraPagamento.jsp</result>
+		</action>
+		
+		<action name="cadastroMedicamento" class="medicamentoAction" method="cadastroMedicamento">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/cadastroMedicamento.jsp</result>
+		</action>
+		
+		<action name="cadastrarMedicamento" class="medicamentoAction" method="cadastrarMedicamento">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/cadastroMedicamento.jsp</result>
 		</action>
 	</package>
 </struts>

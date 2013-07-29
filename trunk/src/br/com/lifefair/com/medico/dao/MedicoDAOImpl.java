@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import br.com.lifefair.connection.AbstractDaoSql;
 import br.com.lifefair.medico.domain.MedicoDTO;
 import br.com.lifefair.medico.domain.MedicoDTORowMapper;
+import br.com.lifefair.paciente.domain.PacienteDTO;
 import br.com.lifefair.usuario.domain.UsuarioDTO;
 
 @Repository
@@ -68,6 +69,7 @@ public class MedicoDAOImpl extends AbstractDaoSql implements MedicoDAO {
 		param.addValue("email", medicoDto.getEmail());
 		param.addValue("telefone", medicoDto.getTelefone());
 		param.addValue("fk_usuario", medicoDto.getFk_usuario());
+		param.addValue("pk_medico", medicoDto.getPk_medico());
 		
 		KeyHolder key = new GeneratedKeyHolder();
 		jdbcTemplate.update(query, param, key);
@@ -114,10 +116,20 @@ public class MedicoDAOImpl extends AbstractDaoSql implements MedicoDAO {
 	}
 	
 	@Override
+	public MedicoDTO getMedicoByPaciente(PacienteDTO pacienteDTO) {
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select * from medicos where pk_medico=:idFk");
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("idFk", pacienteDTO.getFk_medico());
+		return jdbcTemplate.queryForObject(sql.toString(), param, new MedicoDTORowMapper());
+	}
+	
+	@Override
 	public MedicoDTO getMedico(MedicoDTO medicoDto) {
 		StringBuilder sql = new StringBuilder();
 
-		sql.append("select * from medicos where pk_medcio=:pk_medico");
+		sql.append("select * from medicos where pk_medico=:pk_medico");
 		MapSqlParameterSource param = new MapSqlParameterSource();
 		param.addValue("pk_medico", medicoDto.getPk_medico());
 		return jdbcTemplate.queryForObject(sql.toString(), param, new MedicoDTORowMapper());

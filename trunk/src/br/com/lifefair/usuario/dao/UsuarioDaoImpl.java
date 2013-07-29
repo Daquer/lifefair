@@ -116,6 +116,16 @@ public class UsuarioDaoImpl extends AbstractDaoSql implements UsuarioDao {
 	}
 	
 	@Override
+	public UsuarioDTO getUsuarioById(double id){
+		StringBuilder sql = new StringBuilder();
+
+		sql.append("select id as id,NOME as nome, LOGIN as login, SENHA as senha from usuarios where id=:id");
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		param.addValue("id", id);
+		return jdbcTemplate.queryForObject(sql.toString(), param, new UsuarioDTORowMapper());
+	}
+	
+	@Override
 	public List<UsuarioDTO> getLista(UsuarioDTO usuarioDto) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select id as id,NOME as nome, LOGIN as login, SENHA as senha from usuario");

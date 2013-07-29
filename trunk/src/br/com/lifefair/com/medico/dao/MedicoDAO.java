@@ -3,6 +3,7 @@ package br.com.lifefair.com.medico.dao;
 import java.util.List;
 
 import br.com.lifefair.medico.domain.MedicoDTO;
+import br.com.lifefair.paciente.domain.PacienteDTO;
 import br.com.lifefair.usuario.domain.UsuarioDTO;
 
 public interface MedicoDAO {
@@ -25,4 +26,6 @@ public interface MedicoDAO {
 		public boolean excluirMedico(Integer id);
 
 		public MedicoDTO logarMedico(MedicoDTO medicoDto);
+
+		public MedicoDTO getMedicoByPaciente(PacienteDTO pacienteDTO);
 }

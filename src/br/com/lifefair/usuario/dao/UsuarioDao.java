@@ -23,4 +23,6 @@ public interface UsuarioDao {
 
 	public UsuarioDTO logarUsuario(UsuarioDTO usuarioDto);
 
+	public UsuarioDTO getUsuarioById(double id);
+
 }

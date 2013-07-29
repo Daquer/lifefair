@@ -1,21 +1,15 @@
 package br.com.lifefair.medico.domain;
 
 public class MedicoDTO {
-	private double pk_medico;
+	private Long pk_medico;
 	private String cpf;
 	private String crm;
 	private String local_trabalho;
 	private String endereco;
 	private String email;
 	private String telefone;
-	private double fk_usuario;
+	private Long fk_usuario;
 	
-	public double getPk_medico() {
-		return pk_medico;
-	}
-	public void setPk_medico(double pk_medico) {
-		this.pk_medico = pk_medico;
-	}
 	public String getCpf() {
 		return cpf;
 	}
@@ -52,12 +46,17 @@ public class MedicoDTO {
 	public void setTelefone(String telefone) {
 		this.telefone = telefone;
 	}
-	public double getFk_usuario() {
+	public Long getPk_medico() {
+		return pk_medico;
+	}
+	public void setPk_medico(Long pk_medico) {
+		this.pk_medico = pk_medico;
+	}
+	public Long getFk_usuario() {
 		return fk_usuario;
 	}
-	public void setFk_usuario(double fk_usuario) {
+	public void setFk_usuario(Long fk_usuario) {
 		this.fk_usuario = fk_usuario;
 	}
-	
 	
 }

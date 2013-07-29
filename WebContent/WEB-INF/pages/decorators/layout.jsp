@@ -104,8 +104,7 @@
 						<%
 							if (usuario.getTipo().equals("med")) {
 						%>
-						<td class=""><a class="" href=""><strong>Área do
-									Médico</strong></a></td>
+						<td class=""><a class="" href="cadastroMedicamento.do"><strong>Cadastrar Medicamento</strong></a></td>
 						<%
 							} else if (usuario.getTipo().equals("pac")) {
 						%>

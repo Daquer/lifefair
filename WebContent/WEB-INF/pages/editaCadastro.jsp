@@ -9,14 +9,11 @@
 <title>Atualização de cadastro</title>
 </head>
 <body>
-<%
-if (request.getSession().getAttribute("usuarioLogado") != null) {
-UsuarioDTO usuario = (UsuarioDTO) request.getSession()
-									.getAttribute("usuarioLogado");%>
 	<table>
-		<s:form action="atualizaCadastro" method="post" >
+		<s:form action="atualizarCadastro.do" method="post" >
 			<tr>
 				<td>Nome <s:textfield name="usuarioDTO.nome" />
+				<s:hidden name="usuarioDTO.id" />
 				</td>
 			</tr>
 			<tr>
@@ -32,10 +29,15 @@ UsuarioDTO usuario = (UsuarioDTO) request.getSession()
 				</td>
 			</tr>
 		<%
+			UsuarioDTO usuario = (UsuarioDTO) request.getSession()
+			.getAttribute("usuarioLogado");
 			if (usuario.getTipo().equals("pac")) {
 		%>
 			<tr>
 				<td>Nome completo <s:textfield name="pacienteDTO.nome_completo" />
+					<s:hidden name="pacienteDTO.pk_paciente" />
+					<s:hidden name="pacienteDTO.fk_medico" />
+					<s:hidden name="pacienteDTO.fk_usuario" />
 				</td>
 			</tr>
 			
@@ -64,7 +66,7 @@ UsuarioDTO usuario = (UsuarioDTO) request.getSession()
 				</td>
 			</tr>
 			<tr>
-				<td>Problemas de Saúde <s:textfield name="pacienteDTO.problemas" />
+				<td>Problemas de Saúde <s:textfield name="pacienteDTO.saudeprobs" />
 				</td>
 			</tr>
 		<%
@@ -72,6 +74,8 @@ UsuarioDTO usuario = (UsuarioDTO) request.getSession()
 		%>
 			<tr>
 				<td>CPF <s:textfield name="medicoDTO.cpf" />
+					<s:hidden name="medicoDTO.pk_medico" />
+					<s:hidden name="medicoDTO.fk_usuario" />
 				</td>
 			</tr>
 			<tr>
@@ -94,10 +98,14 @@ UsuarioDTO usuario = (UsuarioDTO) request.getSession()
 				<td>Telefone <s:textfield name="medicoDTO.telefone" />
 				</td>
 			</tr>
-		<% } 
-		}%>
+		<% }
+		%>
+		<tr>
+		<td>
+		<s:submit value="Atualizar"/>
+		</td>
+		</tr>
 		</s:form>
-	
 	</table>
 </body>
 </html>

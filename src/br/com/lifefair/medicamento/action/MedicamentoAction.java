@@ -1,7 +1,19 @@
 package br.com.lifefair.medicamento.action;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -14,6 +26,8 @@ import br.com.lifefair.usuario.domain.UsuarioDTO;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sun.image.codec.jpeg.JPEGCodec;
+import com.sun.image.codec.jpeg.JPEGImageDecoder;
 
 
 @Controller
@@ -27,6 +41,13 @@ public class MedicamentoAction extends ActionSupport {
 	private List<MedicamentoDTO> medicamentos;
 	private CarrinhoDTO carrinho;
 	private List<ItemMedicamento> itemsCarrinho;
+	private File imagem;
+	private List<FileItem> formItems;
+	
+	 // upload settings
+    private static final int MEMORY_THRESHOLD   = 1024 * 1024 * 3;  // 3MB
+    private static final int MAX_FILE_SIZE      = 1024 * 1024 * 40; // 40MB
+    private static final int MAX_REQUEST_SIZE   = 1024 * 1024 * 50; // 50MB
 
 	//nome do medicamento para busca
 	private String nome;
@@ -76,6 +97,62 @@ public class MedicamentoAction extends ActionSupport {
 		carrinho.setItems(itemsCarrinho); //atualiza a lista de itens do carrinho
 		return "sucesso";
 	}
+	
+	public String cadastroMedicamento() {
+		return "sucesso";
+	}
+	
+	public String cadastrarMedicamento() {
+		// configures upload settings
+		DiskFileItemFactory factory = new DiskFileItemFactory();
+		// sets memory threshold - beyond which files are stored in disk 
+		factory.setSizeThreshold(MEMORY_THRESHOLD);
+		// sets temporary location to store files
+        factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
+        
+        ServletFileUpload upload = new ServletFileUpload(factory);
+        
+        // sets maximum size of upload file
+        upload.setFileSizeMax(MAX_FILE_SIZE);
+         
+        // sets maximum size of request (include file + form data)
+        upload.setSizeMax(MAX_REQUEST_SIZE);
+        
+        try {
+        	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        	URL url = classLoader.getResource("123.jpg");
+			copy(this.imagem, new File(url.toURI()));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (URISyntaxException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+		return "sucesso";
+	}
+	
+	private void copy(File src, File dst) throws IOException {  
+	    InputStream in = new FileInputStream(src);  
+	    OutputStream out = new FileOutputStream(dst);  
+	  
+	    // Transfer bytes from in to out  
+	    byte[] buf = new byte[1024];  
+	    int len;  
+	    while ((len = in.read(buf)) > 0) {  
+	        out.write(buf, 0, len);  
+	    }  
+	    in.close();  
+	    out.close();  
+	}  
+	
+	//carrega imagem de um inputStream. Proprio para uso dentro de action web  
+		private static BufferedImage loadImageFromInputStream(InputStream in) throws IOException {
+			JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(in);
+			BufferedImage result = decoder.decodeAsBufferedImage();
+			return result;
+		}
 	
 	public String subtrairCarrinho() {
 		carrinho = (CarrinhoDTO) ActionContext.getContext().getSession().get("carrinhoLogado");
@@ -188,5 +265,21 @@ public class MedicamentoAction extends ActionSupport {
 
 	public void setItemsCarrinho(List<ItemMedicamento> itemsCarrinho) {
 		this.itemsCarrinho = itemsCarrinho;
+	}
+
+	public File getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(File imagem) {
+		this.imagem = imagem;
+	}
+
+	public List<FileItem> getFormItems() {
+		return formItems;
+	}
+
+	public void setFormItems(List<FileItem> formItems) {
+		this.formItems = formItems;
 	}
 }

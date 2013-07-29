@@ -116,13 +116,23 @@ public class UsuarioAction extends ActionSupport {
 			medicoDTO = medicoDao.getMedicoByUsuario(usuarioDTO);
 		} else {
 			pacienteDTO = pacienteDao.getPacienteByUsuario(usuarioDTO);
+			this.medicoDePac = medicoDao.getMedicoByPaciente(pacienteDTO).getCrm();
 		}
 		
 		return "sucesso";
 	}
 	
-	public String atualizaCadastro() {
-		//TODO metodos de atualizacao de medico e paciente implementados.
+	public String atualizarCadastro() {
+		usuarioDao.alterarUsuario(this.usuarioDTO);
+		
+		if(this.medicoDTO!=null){
+			medicoDao.alterarMedico(this.medicoDTO);
+		}
+		
+		if (this.pacienteDTO!=null){
+			pacienteDao.alterarPaciente(this.pacienteDTO);
+		}
+		
 		return "sucesso";
 	}
 	

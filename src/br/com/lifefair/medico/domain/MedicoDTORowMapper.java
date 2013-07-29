@@ -18,7 +18,7 @@ public class MedicoDTORowMapper implements RowMapper<MedicoDTO> {
 		medicoDto.setEndereco(rs.getString("endereco"));
 		medicoDto.setEmail(rs.getString("email"));
 		medicoDto.setTelefone(rs.getString("telefone"));
-		medicoDto.setFk_usuario(rs.getDouble("fk_usuario"));
+		medicoDto.setFk_usuario(rs.getLong("fk_usuario"));
 		
 		
 		return medicoDto;

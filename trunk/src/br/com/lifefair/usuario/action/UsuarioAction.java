@@ -41,6 +41,8 @@ public class UsuarioAction extends ActionSupport {
 	private MedicoDAO medicoDao;
 	@Autowired
 	private PacienteDAO pacienteDao;
+	//@Autowired
+	//private CompraDAO compraDao;
 	
 	//Acesso
 	//Acesso à home.
@@ -132,6 +134,11 @@ public class UsuarioAction extends ActionSupport {
 		if (this.pacienteDTO!=null){
 			pacienteDao.alterarPaciente(this.pacienteDTO);
 		}
+		
+		return "sucesso";
+	}
+	
+	public String compraPasso1() {
 		
 		return "sucesso";
 	}
@@ -231,5 +238,13 @@ public class UsuarioAction extends ActionSupport {
 	public void setCarrinho(CarrinhoDTO carrinho) {
 		this.carrinho = carrinho;
 	}
+
+	/*public CompraDAO getCompraDao() {
+		return compraDao;
+	}
+
+	public void setCompraDao(CompraDAO compraDao) {
+		this.compraDao = compraDao;
+	}*/
 
 }

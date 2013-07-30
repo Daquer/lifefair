@@ -42,6 +42,7 @@ public class MedicamentoAction extends ActionSupport {
 	private CarrinhoDTO carrinho;
 	private List<ItemMedicamento> itemsCarrinho;
 	private File imagem;
+	private String extensao;
 	private List<FileItem> formItems;
 	
 	 // upload settings
@@ -104,7 +105,7 @@ public class MedicamentoAction extends ActionSupport {
 	
 	public String cadastrarMedicamento() {
 		// configures upload settings
-		DiskFileItemFactory factory = new DiskFileItemFactory();
+		/*DiskFileItemFactory factory = new DiskFileItemFactory();
 		// sets memory threshold - beyond which files are stored in disk 
 		factory.setSizeThreshold(MEMORY_THRESHOLD);
 		// sets temporary location to store files
@@ -116,20 +117,29 @@ public class MedicamentoAction extends ActionSupport {
         upload.setFileSizeMax(MAX_FILE_SIZE);
          
         // sets maximum size of request (include file + form data)
-        upload.setSizeMax(MAX_REQUEST_SIZE);
-        
+        upload.setSizeMax(MAX_REQUEST_SIZE);*/
+		String caminhoDestino = "C:/workspace - Siscomat/LifeFair/WebContent/includes/images/"+medicamentoDTO.getNome() + "." + getExtensao();
         try {
-        	ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        	URL url = classLoader.getResource("123.jpg");
-			copy(this.imagem, new File(url.toURI()));
+        	//ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        	//URL url = classLoader.getResource("123.jpg");
+
+        	//Procurar usar o path relativo ao projeto
+        	//Mudar para server-side e não algo que faz cópia na mesma máquina
+        	//Observar que a imagem do medicamento não é carregada de imediato por ser necessário um refresh no projeto
+			copy(this.imagem, new File(caminhoDestino));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (URISyntaxException e) {
+		/*} catch (URISyntaxException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			e.printStackTrace();*/
 		}
+        int tamanhoCaminho = caminhoDestino.split("WebContent/").length;
+        caminhoDestino = caminhoDestino.split("WebContent/")[tamanhoCaminho - 1];
         
+        this.medicamentoDTO.setImagem(caminhoDestino);
+        
+        dao.incluirMedicamento(this.medicamentoDTO);
 		return "sucesso";
 	}
 	
@@ -148,12 +158,12 @@ public class MedicamentoAction extends ActionSupport {
 	}  
 	
 	//carrega imagem de um inputStream. Proprio para uso dentro de action web  
-		private static BufferedImage loadImageFromInputStream(InputStream in) throws IOException {
+	/*	private static BufferedImage loadImageFromInputStream(InputStream in) throws IOException {
 			JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(in);
 			BufferedImage result = decoder.decodeAsBufferedImage();
 			return result;
 		}
-	
+	*/
 	public String subtrairCarrinho() {
 		carrinho = (CarrinhoDTO) ActionContext.getContext().getSession().get("carrinhoLogado");
 		
@@ -281,5 +291,13 @@ public class MedicamentoAction extends ActionSupport {
 
 	public void setFormItems(List<FileItem> formItems) {
 		this.formItems = formItems;
+	}
+
+	public String getExtensao() {
+		return extensao;
+	}
+
+	public void setExtensao(String extensao) {
+		this.extensao = extensao;
 	}
 }

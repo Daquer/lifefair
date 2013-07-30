@@ -6,8 +6,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Cadastro de Medicamento</title>
+<script type="text/javascript">
+	function getExtensao() {
+		var ultimo = $(":input[type=file]").val().split(".").length; 
+		$("#extensao").val($(":input[type=file]").val().split(".")[ultimo - 1]);
+	}
+	window.onload=function() {
+		$(":input:not(:input[type=submit])").val("");
+	};	
+</script>
 </head>
-<body>
+<body >
 	<table>
 		<s:form action="cadastrarMedicamento.do" method="post" enctype="multipart/form-data">
 		<tr>
@@ -58,11 +67,12 @@
 		<tr>
 			<td>
 				Imagem <input type="file" name="imagem" />
+				<s:hidden id="extensao" name="extensao" />
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<s:submit value="Cadastrar" />
+				<s:submit value="Cadastrar" onClick="getExtensao();" />
 			</td>
 		</tr>
 		</s:form>

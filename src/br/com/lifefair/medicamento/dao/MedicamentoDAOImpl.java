@@ -7,8 +7,11 @@ import java.util.List;
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import br.com.lifefair.connection.AbstractDaoSql;
@@ -19,6 +22,36 @@ public class MedicamentoDAOImpl extends AbstractDaoSql implements MedicamentoDAO
 	
 	@Resource
 	private DataSource dataSource;
+	
+	@Override
+	public MedicamentoDTO incluirMedicamento(MedicamentoDTO medicamentoDto) {
+		String query = "INSERT INTO medicamentos (nome,tarja,principios_ativos,mg_por_g,dtfabric,vencimento,peso,descricao_de_uso,preco,imagem)" +
+				"values (:nome,:tarja,:principios_ativos,:mg_por_g,:dtfabric,:vencimento,:peso,:descricao_de_uso,:preco,:imagem)";
+		MapSqlParameterSource param = new MapSqlParameterSource();
+		
+		param.addValue("nome", medicamentoDto.getNome());
+		param.addValue("tarja", medicamentoDto.getTarja());
+		param.addValue("principios_ativos", medicamentoDto.getPrincipios_ativos());
+		param.addValue("mg_por_g", medicamentoDto.getMg_por_g());
+		param.addValue("dtfabric", medicamentoDto.getDtfabric());
+		param.addValue("vencimento", medicamentoDto.getVencimento());
+		param.addValue("peso", medicamentoDto.getPeso());
+		param.addValue("descricao_de_uso", medicamentoDto.getDescricao_de_uso());
+		param.addValue("preco", medicamentoDto.getPreco());
+		param.addValue("imagem", medicamentoDto.getImagem());
+
+		KeyHolder key = new GeneratedKeyHolder();
+
+		try {
+			jdbcTemplate.update(query, param, key);
+		} catch (DataAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		//medicoDto.setId(key.getKey().longValue()); //recebendo nulo
+
+		return medicamentoDto;
+	}
 	
 	public List<MedicamentoDTO> getBuscaMedicamento(MedicamentoDTO medicamentoDTO) {
 

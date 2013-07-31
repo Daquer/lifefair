@@ -56,6 +56,11 @@
 			<result name="sucesso">/WEB-INF/pages/editaCadastro.jsp</result>
 		</action>
 		
+		<action name="compra" class="usuarioAction" method="compra">
+			<interceptor-ref name="interceptador" />
+			<result name="sucesso">/WEB-INF/pages/compraPagamento.jsp</result>
+		</action>
+		
 		<!-- Medicamento -->
 		<action name="buscaMedicamento" class="medicamentoAction" method="buscaMedicamento">
 			<interceptor-ref name="interceptador" />

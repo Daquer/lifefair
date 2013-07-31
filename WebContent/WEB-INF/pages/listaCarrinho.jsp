@@ -53,7 +53,7 @@
 					<td><img src="<s:property value="medicamento.imagem" />" /></td>
 					<td><s:property value="medicamento.nome" /></td>
 					<td><s:property value="medicamento.preco" /></td>
-					<td><input type="button" value="-" onclick="subtrairQuantidade(<s:property value="medicamento.id" />)" /> <span id="<s:property value="medicamento.id" />"><s:property value="quantidade" /></span>
+					<td><input type="button" value="-" onclick="subtrairQuantidade(<s:property value="medicamento.id" />)" /> <span style="font-color:black;" id="<s:property value="medicamento.id" />"><s:property value="quantidade" /></span>
 					<input type="button" value="+" onclick="adicionaQuantidade(<s:property value="medicamento.id" />)" /></td>
 					
 				</tr>

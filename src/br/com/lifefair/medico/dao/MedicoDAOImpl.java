@@ -1,4 +1,4 @@
-package br.com.lifefair.com.medico.dao;
+package br.com.lifefair.medico.dao;
 
 import java.util.List;
 

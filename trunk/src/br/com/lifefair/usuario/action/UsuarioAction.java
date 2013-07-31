@@ -1,20 +1,26 @@
 package br.com.lifefair.usuario.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 
-import br.com.lifefair.com.medico.dao.MedicoDAO;
+import br.com.lifefair.compra.dao.CompraDAO;
+import br.com.lifefair.compra.domain.CompraDTO;
 import br.com.lifefair.medicamento.domain.CarrinhoDTO;
 import br.com.lifefair.medicamento.domain.ItemMedicamento;
+import br.com.lifefair.medico.dao.MedicoDAO;
 import br.com.lifefair.medico.domain.MedicoDTO;
 import br.com.lifefair.paciente.dao.PacienteDAO;
 import br.com.lifefair.paciente.domain.PacienteDTO;
 import br.com.lifefair.usuario.dao.UsuarioDao;
 import br.com.lifefair.usuario.domain.UsuarioDTO;
+
+import org.springframework.mail.javamail.*;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -28,6 +34,7 @@ public class UsuarioAction extends ActionSupport {
 	private UsuarioDTO usuarioDTO;
 	private MedicoDTO medicoDTO;
 	private PacienteDTO pacienteDTO;
+	private CompraDTO compraDTO;
 	private CarrinhoDTO carrinho;
 	private List<String> tipos;
 	private String tipo;
@@ -41,8 +48,8 @@ public class UsuarioAction extends ActionSupport {
 	private MedicoDAO medicoDao;
 	@Autowired
 	private PacienteDAO pacienteDao;
-	//@Autowired
-	//private CompraDAO compraDao;
+	@Autowired
+	private CompraDAO compraDao;
 	
 	//Acesso
 	//Acesso à home.
@@ -138,7 +145,30 @@ public class UsuarioAction extends ActionSupport {
 		return "sucesso";
 	}
 	
-	public String compraPasso1() {
+	public String compra() {
+		carrinho = (CarrinhoDTO) ActionContext.getContext().getSession().get("carrinhoLogado");
+		usuarioDTO = (UsuarioDTO) ActionContext.getContext().getSession().get("usuarioLogado");
+		SimpleDateFormat formatador = new SimpleDateFormat("dd-MM-yyyy");  
+		String dataFormatada = formatador.format(new Date());  
+		
+		compraDTO.setData(dataFormatada);
+		compraDTO.setIdUsuario(usuarioDTO.getId());
+		
+		Long lastIndex = compraDao.getLastIdCompra();
+		
+		Long indexSoma = Long.parseLong("1");
+			compraDTO.setIdCompra(lastIndex + indexSoma);
+
+		
+		for(ItemMedicamento item : carrinho.getItems())
+		{
+			compraDTO.setIdProduto(item.getMedicamento().getId());
+			compraDTO.setQuantidade(item.getQuantidade());
+			
+			compraDao.inserirCompra(compraDTO);
+		}
+		
+		
 		
 		return "sucesso";
 	}
@@ -239,12 +269,20 @@ public class UsuarioAction extends ActionSupport {
 		this.carrinho = carrinho;
 	}
 
-	/*public CompraDAO getCompraDao() {
+	public CompraDAO getCompraDao() {
 		return compraDao;
 	}
 
 	public void setCompraDao(CompraDAO compraDao) {
 		this.compraDao = compraDao;
-	}*/
+	}
+
+	public CompraDTO getCompraDTO() {
+		return compraDTO;
+	}
+
+	public void setCompraDTO(CompraDTO compraDTO) {
+		this.compraDTO = compraDTO;
+	}
 
 }

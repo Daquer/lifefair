@@ -3,9 +3,11 @@ package br.com.lifefair.compra.domain;
 public class CompraDTO {
 	private Long idCompra;
 	private Long idProduto;
-	private Long quantidade;
+	private int quantidade;
 	private Long idUsuario;
 	private String data;
+	private String numCartao;
+	
 	public Long getIdCompra() {
 		return idCompra;
 	}
@@ -18,10 +20,10 @@ public class CompraDTO {
 	public void setIdProduto(Long idProduto) {
 		this.idProduto = idProduto;
 	}
-	public Long getQuantidade() {
+	public int getQuantidade() {
 		return quantidade;
 	}
-	public void setQuantidade(Long quantidade) {
+	public void setQuantidade(int quantidade) {
 		this.quantidade = quantidade;
 	}
 	public Long getIdUsuario() {
@@ -35,6 +37,12 @@ public class CompraDTO {
 	}
 	public void setData(String data) {
 		this.data = data;
+	}
+	public String getNumCartao() {
+		return numCartao;
+	}
+	public void setNumCartao(String numCartao) {
+		this.numCartao = numCartao;
 	}
 	
 }

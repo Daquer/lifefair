@@ -8,6 +8,5 @@
 <title>Insert title here</title>
 </head>
 <body>
-Olá, faça login por favor.
 </body>
 </html>
